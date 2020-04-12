@@ -1,29 +1,29 @@
 {
   "schemaVersion": 1,
-  "id": "modid",
+  "id": "mcct",
   "version": "${version}",
 
-  "name": "Example Mod",
-  "description": "This is an example description! Tell everyone what your mod is about!",
+  "name": "Minecraft Client Tweaks",
+  "description": "Adds a few client side only features",
   "authors": [
-    "Me!"
+    "SmylerMC"
   ],
   "contact": {
-    "homepage": "https://fabricmc.net/",
-    "sources": "https://github.com/FabricMC/fabric-example-mod"
+    "homepage": "",
+    "sources": "https://github.com/SmylerMC/mcct"
   },
 
-  "license": "CC0-1.0",
-  "icon": "assets/modid/icon.png",
+  "license": "GNU LGPL v3.0",
+  "icon": "assets/mcct/icon.png",
 
   "environment": "*",
   "entrypoints": {
     "main": [
-      "net.fabricmc.example.ExampleMod"
+      "fr.smyler.mcct.MCCT"
     ]
   },
   "mixins": [
-    "modid.mixins.json"
+    "mcct.mixins.json"
   ],
 
   "depends": {

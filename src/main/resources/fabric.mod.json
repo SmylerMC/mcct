@@ -32,6 +32,5 @@
     "minecraft": "1.15.x"
   },
   "suggests": {
-    "flamingo": "*"
   }
 }

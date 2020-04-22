@@ -6,6 +6,7 @@
   "mixins": [
   ],
   "client": [
+    "SwitchHandsTweakMixin"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -6,7 +6,11 @@
   "mixins": [
   ],
   "client": [
-    "SwitchHandsTweakMixin"
+    "SwitchHandsTweakMixin",
+    "SoundManagerMixin",
+    "SoundSystemMixin",
+    "SoundEngineMixin",
+    "SoundOptionScreenTweakMixin"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -9,7 +9,8 @@
     "SwitchHandsTweakMixin",
     "SoundManagerMixin",
     "SoundSystemMixin",
-    "SoundEngineMixin"
+    "SoundEngineMixin",
+    "SoundOptionScreenTweakMixin"
   ],
   "injectors": {
     "defaultRequire": 1

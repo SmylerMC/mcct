@@ -8,8 +8,8 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import fr.smyler.mcct.MCCT;
-import fr.smyler.mcct.audio.SoundHelper;
 import fr.smyler.mcct.audio.TweakedSoundEngine;
+import fr.smyler.mcct.audio.TweakedSoundManager;
 import fr.smyler.mcct.audio.TweakedSoundSystem;
 import fr.smyler.mcct.audio.exceptions.ExtensionNotSupportedException;
 import net.minecraft.client.gui.screen.Screen;
@@ -36,7 +36,8 @@ public abstract class SoundOptionScreenTweakMixin extends GameOptionsScreen {
 	@Inject(at=@At("TAIL"), method="init")
 	public void injectDeviceButton(CallbackInfo info) {
 		try {
-			TweakedSoundSystem soundSystem = SoundHelper.getTweakedSoundSystem();
+			
+			TweakedSoundSystem soundSystem = ((TweakedSoundManager)this.minecraft.getSoundManager()).getTweakedSoundSystem();
 			TweakedSoundEngine soundEngine = soundSystem.getTweakedSoundEngine();
 			this.devices = soundEngine.getAllDevices();
 			if(devices.size() > 0) {
@@ -80,10 +81,10 @@ public abstract class SoundOptionScreenTweakMixin extends GameOptionsScreen {
 					this.children.set(childIndex, newButton);
 				}
 			} else {
-				MCCT.LOGGER.error("No audio device available?");
+				MCCT.LOGGER.error("Failed to find any audio device, falling back to vanilla behavior, whatever it may be");
 			}
 		} catch (ExtensionNotSupportedException e) {
-			MCCT.LOGGER.error("Failed to querry audio device list, extention not available");
+			MCCT.LOGGER.error("Failed to querry audio device list, extension not available");
 		}
 	}
 

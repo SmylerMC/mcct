@@ -20,9 +20,6 @@ import net.minecraft.client.sound.SoundEngine;
 public abstract class SoundEngineMixin implements TweakedSoundEngine{
 
 	@Shadow private long devicePointer;
-
-	@Shadow public abstract void close();
-	@Shadow public abstract void init();
 	
 	private static String preferredDevice = null;
 

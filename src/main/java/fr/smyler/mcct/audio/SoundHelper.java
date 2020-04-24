@@ -9,20 +9,11 @@ import org.lwjgl.openal.ALUtil;
 
 import fr.smyler.mcct.MCCT;
 import fr.smyler.mcct.audio.exceptions.ExtensionNotSupportedException;
-import net.minecraft.client.MinecraftClient;
 
 public abstract class SoundHelper {
 
 	public static boolean isEnumerationExtensionAvailable() {
 		return ALC10.alcIsExtensionPresent(0, "ALC_ENUMERATE_ALL_EXT");
-	}
-
-	public static TweakedSoundSystem getTweakedSoundSystem() {
-		return (TweakedSoundSystem) ((SoundSystemHolder)MinecraftClient.getInstance().getSoundManager()).getSoundSystem();
-	}
-
-	public static TweakedSoundEngine getTweakedSoundEngine() {
-		return (TweakedSoundEngine) (getTweakedSoundSystem()).getSoundEngine();
 	}
 
 	public static List<String> getAllAvailableDevices() throws ExtensionNotSupportedException {

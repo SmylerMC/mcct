@@ -3,17 +3,18 @@
   "id": "mcct",
   "version": "${version}",
 
-  "name": "Minecraft Client Tweaks",
-  "description": "Adds a few client side only features",
+  "name": "MC Client Tweaks",
+  "description": "Adds a few client side only features.",
   "authors": [
     "SmylerMC"
   ],
   "contact": {
-    "homepage": "",
-    "sources": "https://github.com/SmylerMC/mcct"
+    "homepage": "https://github.com/SmylerMC/mcct",
+    "sources": "https://github.com/SmylerMC/mcct",
+    "issues": "https://github.com/SmylerMC/mcct/issues"
   },
 
-  "license": "GNU LGPL v3.0",
+  "license": "LGPL-3.0-or-later",
   "icon": "assets/mcct/icon.png",
 
   "environment": "*",
@@ -32,5 +33,9 @@
     "minecraft": "1.15.x"
   },
   "suggests": {
+  },
+  "custom": {
+    "modmenu:api": false,
+    "modmenu:clientsideOnly": true
   }
 }

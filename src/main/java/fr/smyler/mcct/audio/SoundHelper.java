@@ -1,8 +1,14 @@
 package fr.smyler.mcct.audio;
 
+import java.util.List;
+
 import org.lwjgl.openal.AL10;
 import org.lwjgl.openal.ALC10;
+import org.lwjgl.openal.ALC11;
+import org.lwjgl.openal.ALUtil;
+
 import fr.smyler.mcct.MCCT;
+import fr.smyler.mcct.audio.exceptions.ExtensionNotSupportedException;
 import net.minecraft.client.MinecraftClient;
 
 public abstract class SoundHelper {
@@ -14,9 +20,14 @@ public abstract class SoundHelper {
 	public static TweakedSoundSystem getTweakedSoundSystem() {
 		return (TweakedSoundSystem) ((SoundSystemHolder)MinecraftClient.getInstance().getSoundManager()).getSoundSystem();
 	}
-	
+
 	public static TweakedSoundEngine getTweakedSoundEngine() {
 		return (TweakedSoundEngine) (getTweakedSoundSystem()).getSoundEngine();
+	}
+
+	public static List<String> getAllAvailableDevices() throws ExtensionNotSupportedException {
+		if(!SoundHelper.isEnumerationExtensionAvailable()) throw new ExtensionNotSupportedException();
+		return ALUtil.getStringList(0, ALC11.ALC_ALL_DEVICES_SPECIFIER);
 	}
 
 	private static String getALErrorMessage(int errorCode) {

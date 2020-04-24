@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.lwjgl.openal.ALC10;
 import org.lwjgl.openal.ALC11;
-import org.lwjgl.openal.ALUtil;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -21,7 +20,6 @@ import net.minecraft.client.sound.SoundEngine;
 public abstract class SoundEngineMixin implements TweakedSoundEngine{
 
 	@Shadow private long devicePointer;
-	@Shadow private long contextPointer;
 
 	@Shadow public abstract void close();
 	@Shadow public abstract void init();
@@ -34,16 +32,18 @@ public abstract class SoundEngineMixin implements TweakedSoundEngine{
 		return ALC10.alcGetString(this.devicePointer, ALC11.ALC_ALL_DEVICES_SPECIFIER);
 	}
 	
+	/**
+	 * Just a shortcut to {@link SoundHelper#getAllAvailableDevices()}
+	 */
 	@Override
 	public List<String> getAllDevices() throws ExtensionNotSupportedException {
-		if(!SoundHelper.isEnumerationExtensionAvailable()) throw new ExtensionNotSupportedException();
-		return ALUtil.getStringList(0, ALC11.ALC_ALL_DEVICES_SPECIFIER);
+		return SoundHelper.getAllAvailableDevices();
 	}
 
 	@Override
 	public void setPreferredDevice(String deviceName) {
 		SoundEngineMixin.preferredDevice = deviceName;
-		MCCT.LOGGER.info("Changed preferred audio device: " + deviceName);
+		MCCT.LOGGER.info("Changed preferred audio device to " + deviceName);
 	}
 
 	private static long openDevice(String deviceName) {
@@ -61,8 +61,16 @@ public abstract class SoundEngineMixin implements TweakedSoundEngine{
 	@Inject(at=@At("HEAD"), method="openDevice()L", cancellable=true)
 	private static void proxyOpenDevice(CallbackInfoReturnable<Long> info) {
 		if(preferredDevice != null) {
-			MCCT.LOGGER.info("Redirecting openDevice to device " + preferredDevice);
-			info.setReturnValue(openDevice(preferredDevice));
+			try {
+				if(SoundHelper.getAllAvailableDevices().contains(preferredDevice)) {
+					MCCT.LOGGER.info("Openning preferred audio device " + preferredDevice);
+					info.setReturnValue(openDevice(preferredDevice));
+				} else {
+					MCCT.LOGGER.error("Preferred audio device does not exist! Falling back to default device");
+				}
+			} catch (ExtensionNotSupportedException e) {
+				MCCT.LOGGER.error("Falling back to openning default audio device as the enumeration extension is not present");
+			}
 		} else {
 			MCCT.LOGGER.info("Openning default audio device");
 		}

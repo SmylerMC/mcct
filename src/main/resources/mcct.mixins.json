@@ -7,7 +7,9 @@
   ],
   "client": [
     "SwitchHandsTweakMixin",
-    "SoundManagerMixin"
+    "SoundManagerMixin",
+    "SoundSystemMixin",
+    "SoundEngineMixin"
   ],
   "injectors": {
     "defaultRequire": 1

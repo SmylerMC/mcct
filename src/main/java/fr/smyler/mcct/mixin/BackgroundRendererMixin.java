@@ -12,14 +12,18 @@ import net.minecraft.client.render.Camera;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.tag.FluidTags;
 
+//FIXME Not compatible with Optifine
 @Mixin(BackgroundRenderer.class)
 public abstract class BackgroundRendererMixin {
+	
+	public static float lavaFogDensity = 0.25F;
 
 	@Inject(at=@At("TAIL"), method="applyFog")
 	private static void fogTweak(Camera camera, BackgroundRenderer.FogType fogType, float viewDistance, boolean thickFog, CallbackInfo info) {
 		FluidState fluidState = camera.getSubmergedFluidState();
 		if (fluidState.matches(FluidTags.LAVA)) {
-			RenderSystem.fogDensity(0.25F);
+			RenderSystem.fogDensity(lavaFogDensity);
          }
 	}
+	
 }

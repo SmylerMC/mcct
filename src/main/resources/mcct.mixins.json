@@ -10,7 +10,8 @@
     "SoundManagerMixin",
     "SoundSystemMixin",
     "SoundEngineMixin",
-    "SoundOptionScreenTweakMixin"
+    "SoundOptionScreenTweakMixin",
+    "BackgroundRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -55,7 +55,7 @@ public abstract class SoundEngineMixin implements TweakedSoundEngine{
 
 	}
 	
-	@Inject(at=@At("HEAD"), method="openDevice()L", cancellable=true)
+	@Inject(at=@At("HEAD"), method="openDevice()J", cancellable=true)
 	private static void proxyOpenDevice(CallbackInfoReturnable<Long> info) {
 		if(preferredDevice != null) {
 			try {

@@ -24,7 +24,8 @@
     ]
   },
   "mixins": [
-    "mcct.mixins.json"
+    "mcct.mixins.json",
+    "mcct.mixins-optifine.json"
   ],
 
   "depends": {

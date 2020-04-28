@@ -1,0 +1,14 @@
+{
+  "required": false,
+  "minVersion": "0.8",
+  "package": "fr.smyler.mcct.mixin.optifine",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+  ],
+  "client": [
+    "BackgroundRendererOptifineMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

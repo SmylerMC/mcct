@@ -14,6 +14,7 @@ import fr.smyler.mcct.MCCT;
 import fr.smyler.mcct.audio.SoundHelper;
 import fr.smyler.mcct.audio.TweakedSoundEngine;
 import fr.smyler.mcct.audio.exceptions.ExtensionNotSupportedException;
+import fr.smyler.mcct.tweaks.Tweaks;
 import net.minecraft.client.sound.SoundEngine;
 
 @Mixin(SoundEngine.class)
@@ -57,6 +58,7 @@ public abstract class SoundEngineMixin implements TweakedSoundEngine{
 	
 	@Inject(at=@At("HEAD"), method="openDevice()J", cancellable=true)
 	private static void proxyOpenDevice(CallbackInfoReturnable<Long> info) {
+		if(!Tweaks.SOUND_DEVICE.isActivated()) return;
 		if(preferredDevice != null) {
 			try {
 				if(SoundHelper.getAllAvailableDevices().contains(preferredDevice)) {

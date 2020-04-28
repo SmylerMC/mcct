@@ -6,6 +6,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import fr.smyler.mcct.tweaks.Tweaks;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.ingame.ContainerProvider;
 import net.minecraft.client.gui.screen.ingame.ContainerScreen;
@@ -27,6 +28,7 @@ public abstract class SwitchHandsTweakMixin<T extends Container> extends Screen 
 
 	@Inject(at=@At("HEAD"), method="handleHotbarKeyPressed")
 	private void handleHotbarKeyPressed(int keyCode, int scanCode, CallbackInfoReturnable<Boolean> info) {
+		if(!Tweaks.SWAP_HAND_IN_INVENTORY.isActivated()) return;
 		if (this.minecraft.player.inventory.getCursorStack().isEmpty() && this.focusedSlot != null && this.focusedSlot.id >= 9) {
 			if (minecraft.options.keySwapHands.matchesKey(keyCode, scanCode) && this.minecraft.currentScreen instanceof InventoryScreen) {
 				minecraft.interactionManager.clickSlot(this.getContainer().syncId, 45, 0, SlotActionType.PICKUP, this.minecraft.player);

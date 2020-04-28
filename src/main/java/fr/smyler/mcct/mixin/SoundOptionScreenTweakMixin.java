@@ -12,6 +12,7 @@ import fr.smyler.mcct.audio.TweakedSoundEngine;
 import fr.smyler.mcct.audio.TweakedSoundManager;
 import fr.smyler.mcct.audio.TweakedSoundSystem;
 import fr.smyler.mcct.audio.exceptions.ExtensionNotSupportedException;
+import fr.smyler.mcct.tweaks.Tweaks;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.options.GameOptionsScreen;
 import net.minecraft.client.gui.screen.options.SoundOptionsScreen;
@@ -35,6 +36,7 @@ public abstract class SoundOptionScreenTweakMixin extends GameOptionsScreen {
 
 	@Inject(at=@At("TAIL"), method="init")
 	public void injectDeviceButton(CallbackInfo info) {
+		if(!Tweaks.SOUND_DEVICE.isActivated()) return;
 		try {
 			
 			TweakedSoundSystem soundSystem = ((TweakedSoundManager)this.minecraft.getSoundManager()).getTweakedSoundSystem();

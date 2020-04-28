@@ -1,5 +1,7 @@
 package fr.smyler.mcct.tweaks;
 
+import java.util.HashMap;
+
 public class BasicTweak extends AbstractTweak {
 
 	public BasicTweak(String id, String name, String longDescription) {
@@ -12,13 +14,20 @@ public class BasicTweak extends AbstractTweak {
 	}
 
 	@Override
-	public Object getConfiguration() {
-		return this.isActivated();
+	public HashMap<String, Object> getConfiguration() {
+		HashMap<String, Object> config = new HashMap<String, Object>();
+		config.put("activated", this.isActivated());
+		return config;
 	}
 
 	@Override
-	public void setFromConfiguration(Object configuration) throws InvalidConfiguration {
-		this.setActivated((Boolean)configuration);
+	public void setFromConfiguration(HashMap<String, Object> configuration) throws InvalidConfigurationException {
+		try {
+			this.setActivated((boolean)configuration.get("activated"));
+		} catch(ClassCastException e) {
+			throw new InvalidConfigurationException("Invalid config value: " + configuration.getClass().toGenericString());
+		}
+		
 	}
 
 }

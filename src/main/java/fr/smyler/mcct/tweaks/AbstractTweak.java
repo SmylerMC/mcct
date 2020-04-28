@@ -1,5 +1,7 @@
 package fr.smyler.mcct.tweaks;
 
+import java.util.HashMap;
+
 import fr.smyler.mcct.MCCT;
 import net.minecraft.client.resource.language.I18n;
 
@@ -31,16 +33,16 @@ public abstract class AbstractTweak {
 	 * 
 	 * @return The current configuration as a Json serializable object 
 	 */
-	public abstract Object getConfiguration();
+	public abstract HashMap<String, Object> getConfiguration();
 	
 	/**
 	 * Set the tweak configuration
 	 * 
-	 * @param configuration configuration object deserialized from json
-	 * @throws InvalidConfiguration if configuration is not a valid config for thos tweak
+	 * @param configuration deserialized from json
+	 * @throws InvalidConfigurationException if configuration is not a valid config for this tweak
 	 * 
 	 */
-	public abstract void setFromConfiguration(Object configuration) throws InvalidConfiguration;
+	public abstract void setFromConfiguration(HashMap<String, Object> configuration) throws InvalidConfigurationException ;
 	
 	public String getId() {
 		return this.id;

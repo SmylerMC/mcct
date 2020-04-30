@@ -3,11 +3,15 @@ package fr.smyler.mcct.tweaks;
 import java.util.HashMap;
 
 import fr.smyler.mcct.MCCT;
+import fr.smyler.mcct.config.ConfigBooleanValue;
+import fr.smyler.mcct.config.ConfigValue;
+import fr.smyler.mcct.config.InvalidConfigValue;
+import fr.smyler.mcct.config.InvalidConfigurationException;
 import net.minecraft.client.resource.language.I18n;
 
 public abstract class AbstractTweak {
 	
-	protected boolean activated;
+	protected ConfigBooleanValue activated;
 
 	protected String id;
 	
@@ -16,7 +20,7 @@ public abstract class AbstractTweak {
 	
 	public AbstractTweak(String id, String name, String longDescription) {
 		this.id = id;
-		this.activated = false;
+		this.activated = new ConfigBooleanValue(true, "activated");
 		this.displayNameKey = MCCT.MOD_ID + "." + name;
 		this.longDescriptionKey = MCCT.MOD_ID + "." + longDescription;
 		Tweaks.registerTweak(this);
@@ -33,7 +37,7 @@ public abstract class AbstractTweak {
 	 * 
 	 * @return The current configuration as a Json serializable object 
 	 */
-	public abstract HashMap<String, Object> getConfiguration();
+	public abstract HashMap<String, ConfigValue<?>> getConfiguration();
 	
 	/**
 	 * Set the tweak configuration
@@ -56,11 +60,16 @@ public abstract class AbstractTweak {
 	}
 	
 	public boolean isActivated() {
-		return this.activated;
+		return this.activated.get();
 	}
 	
 	public void setActivated(boolean activated) {
-		this.activated = activated;
+		try {
+			this.activated.set(activated);
+		} catch (InvalidConfigValue e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public String getNameKey() {

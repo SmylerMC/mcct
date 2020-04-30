@@ -2,9 +2,13 @@ package fr.smyler.mcct.tweaks;
 
 import java.util.Collection;
 import java.util.HashMap;
+
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
+
 import fr.smyler.mcct.MCCT;
+import fr.smyler.mcct.config.ConfigValue;
+import fr.smyler.mcct.config.InvalidConfigurationException;
 
 public abstract class Tweaks {
 	
@@ -29,16 +33,17 @@ public abstract class Tweaks {
 	}
 	
 	public static String writeToJson() {
-		HashMap<String, HashMap<String, Object>> configTweaks = new HashMap<String, HashMap<String, Object>>();
+		HashMap<String, HashMap<String, ConfigValue<?>>> configTweaks = new HashMap<String, HashMap<String, ConfigValue<?>>>();
 		for(String key: tweaks.keySet()) {
 			configTweaks.put(key, tweaks.get(key).getConfiguration());
 		}
-		return new GsonBuilder().setPrettyPrinting().create().toJson(new MCCTTweaksConfig(configTweaks));
+		return ConfigValue.getSerializerGson().toJson(configTweaks);
 	}
 	
-	public static void readFromJson(String jsonString) throws InvalidConfigurationException{
+	public static void readFromJson(String jsonString) {
 		try {
-			HashMap<String, HashMap<String, Object>> config = new Gson().fromJson(jsonString, MCCTTweaksConfig.class).tweaks;
+			Gson gson = ConfigValue.getSerializerGson();
+			HashMap<String, HashMap<String, Object>> config = gson.fromJson(jsonString, new TypeToken<HashMap<String, HashMap<String, Object>>>() {}.getType());
 			for(String key: config.keySet()) {
 				if(!Tweaks.tweaks.containsKey(key)) throw new InvalidConfigurationException("Invalid tweak id");
 				Tweaks.tweaks.get(key).setFromConfiguration(config.get(key));
@@ -48,14 +53,4 @@ public abstract class Tweaks {
 		}
 	}
 
-}
-
-class MCCTTweaksConfig {
-	
-	public HashMap<String, HashMap<String, Object>> tweaks;
-	
-	public MCCTTweaksConfig(HashMap<String, HashMap<String, Object>> tweaks) {
-		this.tweaks = tweaks;
-	}
-	
 }

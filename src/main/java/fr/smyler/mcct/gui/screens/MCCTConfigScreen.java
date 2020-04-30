@@ -5,14 +5,14 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.resource.language.I18n;
-import net.minecraft.text.LiteralText;
+import net.minecraft.text.TranslatableText;
 
 public class MCCTConfigScreen extends Screen {
 	
 	private Screen parentScreen;
 
 	public MCCTConfigScreen(Screen screen) {
-		super(new LiteralText(MCCT.MOD_ID + ".configscreen"));
+		super(new TranslatableText(MCCT.MOD_ID + ".configscreen.title"));
 		this.parentScreen = screen;
 
 	}
@@ -29,7 +29,7 @@ public class MCCTConfigScreen extends Screen {
 	public void render(int mouseX, int mouseY, float delta) {
 		this.renderBackground();
 		super.render(mouseX, mouseY, delta);
-		this.drawCenteredString(this.font, I18n.translate(MCCT.MOD_ID + ".configscreen.title"), this.width/2, 40, 0xFFFFFF);
+		this.drawCenteredString(this.font, I18n.translate(MCCT.MOD_ID + ".configscreen.title"), this.width/2, 20, 0xFFFFFF);
 	}
 
 }

@@ -1,4 +1,4 @@
-package fr.smyler.mcct.tweaks.config;
+package fr.smyler.mcct.config;
 
 public abstract class ConfigNumericValue<T extends Comparable<T>> extends ConfigValue<T> {
 	
@@ -11,7 +11,7 @@ public abstract class ConfigNumericValue<T extends Comparable<T>> extends Config
 	}
 
 	@Override
-	public void checkValue(T value) throws InvalidConfigValue{
+	public void checkValue(T value) {
 		if(value.compareTo(this.getMin()) < 0)
 			throw new InvalidConfigValue("The given value is small than min");
 		if(value.compareTo(this.getMax()) > 0)

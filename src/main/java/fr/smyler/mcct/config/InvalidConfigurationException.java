@@ -1,6 +1,6 @@
-package fr.smyler.mcct.tweaks;
+package fr.smyler.mcct.config;
 
-public class InvalidConfigurationException extends Exception {
+public class InvalidConfigurationException extends IllegalArgumentException {
 
 	/**
 	 * 

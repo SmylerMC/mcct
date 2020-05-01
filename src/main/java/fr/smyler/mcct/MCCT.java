@@ -9,7 +9,7 @@ import net.fabricmc.api.ClientModInitializer;
 public class MCCT implements ClientModInitializer {
 	
 	public static final String MOD_ID = "mcct";
-	public static final Logger LOGGER = LogManager.getLogger("MOD_ID");
+	public static final Logger LOGGER = LogManager.getLogger(MCCT.MOD_ID);
 	
 	@Override
 	public void onInitializeClient() {

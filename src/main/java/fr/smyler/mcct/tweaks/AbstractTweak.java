@@ -11,9 +11,9 @@ import net.minecraft.client.resource.language.I18n;
 
 public abstract class AbstractTweak {
 	
-	protected ConfigBooleanValue activated;
+	protected final ConfigBooleanValue activated;
 
-	protected String id;
+	protected final String id;
 	
 	protected String displayNameKey;
 	protected String longDescriptionKey;

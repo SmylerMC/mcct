@@ -60,11 +60,14 @@ public class TweakConfigListWidget extends ElementListWidget<TweakConfigListWidg
 
 		public TweakEntry(AbstractTweak tweak) {
 			this.tweak = tweak;
-			this.toggleButton = new ToggleButtonWidget(0, 0, 26, 16, true) {
+			this.toggleButton = new ToggleButtonWidget(0, 0, 26, 16, this.tweak.isActivated()) {
 
 				@Override
 				public void onClick(double mouseX, double mouseY) {
-					if(this.active) this.toggled = !this.toggled;
+					if(this.active) {
+						this.toggled = !this.toggled;
+						TweakEntry.this.tweak.setActivated(this.isToggled());
+					}
 				}
 
 			};

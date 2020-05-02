@@ -28,6 +28,7 @@ public abstract class Tweaks {
 	}
 	
 	public static void setToDefault() {
+		//TODO Use new system to reset tweak config
 		Tweaks.SWAP_HAND_IN_INVENTORY.setActivated(true);
 		Tweaks.SOUND_DEVICE.setActivated(true);
 	}

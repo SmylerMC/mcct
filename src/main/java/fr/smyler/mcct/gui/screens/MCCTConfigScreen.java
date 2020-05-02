@@ -28,6 +28,7 @@ public class MCCTConfigScreen extends Screen {
 		resetButton.active = false;
 		this.addButton(resetButton);
 		this.addButton(new ButtonWidget(this.width / 2 + 4, this.height - 28, 150, 20, I18n.translate("gui.done"), button ->  {
+			//TODO Save config to file
 			MinecraftClient.getInstance().openScreen(this.parentScreen);
 		}));
 		this.widgetList = new TweakConfigListWidget(minecraft, this.width / 2, this.height - 30, 50, this.height - 50, 30);

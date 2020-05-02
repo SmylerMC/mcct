@@ -16,6 +16,7 @@ public abstract class Tweaks {
 	
 	public static final BasicTweak SWAP_HAND_IN_INVENTORY = new BasicTweak("swap_hand_in_inventory", "swaphandinv_tweak.name", "swaphandinv_tweak.desc");
 	public static final BasicTweak SOUND_DEVICE = new BasicTweak("sound_output_device", "sounddevice_tweak.name", "sounddevice_tweak.desc");
+	public static final TestTweak TEST_TWEAK = new TestTweak("test");
 
 	public static void registerTweak(AbstractTweak tweak) {
 		MCCT.LOGGER.debug("Registering tweak: " + tweak.getId());

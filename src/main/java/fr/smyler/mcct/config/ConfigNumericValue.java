@@ -8,13 +8,14 @@ public abstract class ConfigNumericValue<T extends Comparable<T>> extends Config
 		super(defaultValue, commentKey);
 		this.minValue = minValue;
 		this.maxValue = maxValue;
+		this.checkValue(this.getDefault());
 	}
 
 	@Override
 	public void checkValue(T value) {
-		if(value.compareTo(this.getMin()) < 0)
+		if(this.getMin() != null && value.compareTo(this.getMin()) < 0)
 			throw new InvalidConfigValue("The given value is small than min");
-		if(value.compareTo(this.getMax()) > 0)
+		if(this.getMax() != null && value.compareTo(this.getMax()) > 0)
 			throw new InvalidConfigValue("The given value is greater than max");
 	}
 	

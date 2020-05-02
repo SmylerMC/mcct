@@ -21,7 +21,7 @@ public class BasicTweak extends AbstractTweak {
 	@Override
 	public HashMap<String, ConfigValue<?>> getConfiguration() {
 		HashMap<String, ConfigValue<?>> config = new HashMap<String, ConfigValue<?>>();
-		config.put("activated",this.activated);
+		config.put("activated", this.activated);
 		return config;
 	}
 

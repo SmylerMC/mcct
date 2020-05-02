@@ -48,6 +48,10 @@ public class ConfigValueListWidget extends ElementListWidget<ConfigValueListWidg
 			this.addValueEntry(tweak);
 		}
 	}
+	
+	public void clear() {
+		this.clearEntries();
+	}
 
 	@Override
 	public int getRowWidth() {

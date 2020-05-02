@@ -20,9 +20,12 @@ import net.minecraft.client.render.VertexFormats;
 import net.minecraft.util.Identifier;
 
 public class TweakConfigListWidget extends ElementListWidget<TweakConfigListWidget.TweakEntry> {
+	
+	public SelectionChangeResponder respond;
 
-	public TweakConfigListWidget(MinecraftClient client, int width, int height, int top, int bottom, int itemHeight) {
+	public TweakConfigListWidget(MinecraftClient client, int width, int height, int top, int bottom, int itemHeight, SelectionChangeResponder responder) {
 		super(client, width, height, top, bottom, itemHeight);
+		this.respond = responder;
 	}
 
 	public void addTweakEntry(AbstractTweak tweak) {
@@ -73,7 +76,9 @@ public class TweakConfigListWidget extends ElementListWidget<TweakConfigListWidg
 			};
 			this.toggleButton.setTextureUV(2, 2, 28, 18, new Identifier(MCCT.MOD_ID, "textures/gui/widgets.png"));
 			this.mainButton = new ButtonWidget(0, 0, TweakConfigListWidget.this.width, TweakConfigListWidget.this.itemHeight, "", button ->  {
+				TweakEntry old = TweakConfigListWidget.this.getSelected();
 				TweakConfigListWidget.this.setSelected(TweakEntry.this);
+				TweakConfigListWidget.this.respond.onSelectionChange(old, this);
 			});
 		}
 
@@ -101,9 +106,9 @@ public class TweakConfigListWidget extends ElementListWidget<TweakConfigListWidg
 			this.mainButton.x = x;
 			this.mainButton.y = y;
 			this.toggleButton.x = x + width - this.toggleButton.getWidth() - 20;
-			this.toggleButton.y = y + height/2 - 10;
+			this.toggleButton.y = y + height/2 - 8;
 			this.toggleButton.render(mouseX, mouseY, delta);
-			TweakConfigListWidget.this.drawString(this.font, this.tweak.getLocalizedName(), 10, y + height/2 - 5, color);
+			TweakConfigListWidget.this.drawString(this.font, this.tweak.getLocalizedName(), 10, y + height/2 - 4, color);
 		}
 
 		@Override
@@ -113,6 +118,11 @@ public class TweakConfigListWidget extends ElementListWidget<TweakConfigListWidg
 			children.add(this.mainButton);
 			return children;
 		}
+		
+		public AbstractTweak getTweak() {
+			return this.tweak;
+		}
 
 	}
+	
 }

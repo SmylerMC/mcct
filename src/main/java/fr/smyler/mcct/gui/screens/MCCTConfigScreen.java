@@ -38,10 +38,10 @@ public class MCCTConfigScreen extends Screen {
 			MCCTConfigScreen.this.widgetValueList.clear();
 			Map<String, ConfigValue<?>> config = newEntry.getTweak().getConfiguration();
 			config.remove("activated");
-			MCCTConfigScreen.this.widgetValueList.addAll(config.values());
+			MCCTConfigScreen.this.widgetValueList.addAll(config);
 		});
 		this.widgetTweakList.setLeftPos(5);
-		this.widgetValueList = new ConfigValueListWidget(minecraft, this.width / 2 - 10, this.height - 30, this.height / 2, this.height - 50, 30);
+		this.widgetValueList = new ConfigValueListWidget(minecraft, this.width / 2 - 10, this.height, this.height / 2, this.height - 50, 55);
 		this.widgetValueList.setLeftPos(this.width/2 + 5);
 		this.addButton(resetButton);
 		this.addButton(new ButtonWidget(this.width / 2 + 4, this.height - 28, 150, 20, I18n.translate("gui.done"), button ->  {
@@ -50,12 +50,12 @@ public class MCCTConfigScreen extends Screen {
 		}));
 		this.widgetTweakList.addAll(Tweaks.getTweaks());
 		this.children.add(this.widgetTweakList);
+		this.children.add(this.widgetValueList);
 	}
 
 	@Override
 	public void render(int mouseX, int mouseY, float delta) {
 		this.renderDirtBackground(0);
-		super.render(mouseX, mouseY, delta);
 		this.widgetTweakList.render(mouseX, mouseY, delta);
 		this.widgetValueList.render(mouseX, mouseY, delta);
 		this.drawCenteredString(this.font, I18n.translate(MCCT.MOD_ID + ".configscreen.title"), this.width/2, 20, 0xFFFFFF);
@@ -69,6 +69,7 @@ public class MCCTConfigScreen extends Screen {
 		} else {
 			RenderUtils.drawMultilineBoxedString(this.minecraft, I18n.translate(MCCT.MOD_ID + ".configscreen.selecttweak"), this.width/2 + 5, 70, this.width / 2 -10, 0xBBBBBB);
 		}
+		super.render(mouseX, mouseY, delta);
 	}
 	
 }

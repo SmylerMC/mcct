@@ -51,7 +51,7 @@ public class TweakConfigListWidget extends ElementListWidget<TweakConfigListWidg
 
 	@Override
 	protected int getScrollbarPosition() {
-		return this.width - 5;
+		return this.left + this.width - 5;
 	}
 
 	public class TweakEntry extends ElementListWidget.Entry<TweakConfigListWidget.TweakEntry> {

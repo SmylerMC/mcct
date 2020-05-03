@@ -58,7 +58,18 @@ public class TestTweak extends AbstractTweak {
 
 	@Override
 	public void setFromConfiguration(HashMap<String, Object> configuration) throws InvalidConfigurationException {
-		// TODO testTweak setFromConfiguration
+		this.activated.set((boolean)configuration.get("activated"));
+		this.aBooleanValue1.set((boolean)configuration.get("boolVal"));
+		this.aBooleanValue2.set((boolean)configuration.get("boolVal2"));
+		this.aBooleanValue3.set((boolean)configuration.get("boolVal3"));
+		this.aBooleanValue4.set((boolean)configuration.get("boolVal4"));
+		this.aBooleanValue5.set((boolean)configuration.get("boolVal5"));
+		this.aBooleanValue6.set((boolean)configuration.get("boolVal6"));
+		this.aBooleanValue7.set((boolean)configuration.get("boolVal7"));
+		this.aBooleanValue8.set((boolean)configuration.get("boolVal8"));
+		this.anIntValue.set(((Double)configuration.get("intVal")).intValue());
+		this.aFloatValue.set(((Double)configuration.get("floatVal")).floatValue());
+		this.aStringValue.set((String)configuration.get("stringVal"));
 	}
 
 }

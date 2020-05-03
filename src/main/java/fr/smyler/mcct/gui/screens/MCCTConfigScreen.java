@@ -6,6 +6,7 @@ import fr.smyler.mcct.MCCT;
 import fr.smyler.mcct.config.ConfigValue;
 import fr.smyler.mcct.gui.RenderUtils;
 import fr.smyler.mcct.gui.widgets.ConfigValueListWidget;
+import fr.smyler.mcct.gui.widgets.ConfigValueListWidget.ValueEntry;
 import fr.smyler.mcct.gui.widgets.TweakConfigListWidget;
 import fr.smyler.mcct.gui.widgets.TweakConfigListWidget.TweakEntry;
 import fr.smyler.mcct.tweaks.AbstractTweak;
@@ -21,6 +22,7 @@ public class MCCTConfigScreen extends Screen {
 	private Screen parentScreen;
 	private TweakConfigListWidget widgetTweakList;
 	private ConfigValueListWidget widgetValueList;
+	private ButtonWidget resetValuesButton;
 
 	public MCCTConfigScreen(Screen screen) {
 		super(new TranslatableText(MCCT.MOD_ID + ".configscreen.title"));
@@ -35,11 +37,11 @@ public class MCCTConfigScreen extends Screen {
 			this.widgetTweakList.updateFromTweaks();
 			this.widgetValueList.updateFromTweaks();
 		});
-//		resetButton.active = false;
 		this.widgetTweakList = new TweakConfigListWidget(minecraft, this.width / 2 - 10, this.height - 30, 50, this.height - 50, 30, (oldEntry, newEntry) -> {
 			MCCTConfigScreen.this.widgetValueList.clear();
 			Map<String, ConfigValue<?>> config = newEntry.getTweak().getConfiguration();
 			config.remove("activated");
+			this.resetValuesButton.active = config.size() > 0;
 			MCCTConfigScreen.this.widgetValueList.addAll(config);
 		});
 		this.widgetTweakList.setLeftPos(5);
@@ -47,9 +49,16 @@ public class MCCTConfigScreen extends Screen {
 		this.widgetValueList.setLeftPos(this.width/2 + 5);
 		this.addButton(resetButton);
 		this.addButton(new ButtonWidget(this.width / 2 + 4, this.height - 28, 150, 20, I18n.translate("gui.done"), button ->  {
-			//TODO Save config to file
+			Tweaks.saveConfig();
 			MinecraftClient.getInstance().openScreen(this.parentScreen);
 		}));
+		this.resetValuesButton = new ButtonWidget(this.width / 4 * 3 - 100, this.height / 2 - 25, 200, 20, I18n.translate(MCCT.MOD_ID + ".configscreen.valuesdefault"), button ->  {
+			for(ValueEntry<?> entry: this.widgetValueList.children()) {
+				entry.resetValue();
+			}
+		});
+		this.resetValuesButton.active = false;
+		this.addButton(resetValuesButton);
 		this.widgetTweakList.addAll(Tweaks.getTweaks());
 		this.children.add(this.widgetTweakList);
 		this.children.add(this.widgetValueList);

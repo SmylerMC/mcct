@@ -200,7 +200,7 @@ public class ConfigValueListWidget extends ElementListWidget<ConfigValueListWidg
 		public FloatValueEntry(String key, ConfigFloatValue configValue) {
 			super(key, configValue);
 			if(this.configValue.getMin() != null && this.configValue.getMax() != null) {
-				this.slider = new FloatSliderWidget(0, 0, 0, 20, 0, this.configValue.getMin(), this.configValue.getMax()) {
+				this.slider = new FloatSliderWidget(0, 0, 0, 20, this.configValue.get(), this.configValue.getMin(), this.configValue.getMax()) {
 
 					@Override
 					protected void applyValue() {

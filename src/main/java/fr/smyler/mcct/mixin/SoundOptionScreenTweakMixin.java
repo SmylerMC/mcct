@@ -69,7 +69,7 @@ public abstract class SoundOptionScreenTweakMixin extends GameOptionsScreen {
 								String newDevice = devices.get(deviceId);
 								try {
 									if(!soundEngine.getCurrentDevice().equals(newDevice)) {
-										soundEngine.setPreferredDevice(devices.get(deviceId));
+										Tweaks.SOUND_DEVICE.PREFERRED_DEVICE.set(devices.get(deviceId));
 										soundSystem.restart();
 									}
 								} catch (ExtensionNotSupportedException e) {

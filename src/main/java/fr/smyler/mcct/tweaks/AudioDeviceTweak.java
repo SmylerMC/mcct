@@ -2,17 +2,17 @@ package fr.smyler.mcct.tweaks;
 
 import java.util.HashMap;
 
-import fr.smyler.mcct.config.ConfigFloatValue;
+import fr.smyler.mcct.config.ConfigStringValue;
 import fr.smyler.mcct.config.ConfigValue;
 import fr.smyler.mcct.config.InvalidConfigurationException;
 
-public class LavaTweak extends AbstractTweak {
+public class AudioDeviceTweak extends AbstractTweak {
 	
-	public final ConfigFloatValue FOG_DENSITY;
+	public final ConfigStringValue PREFERRED_DEVICE;
 
-	public LavaTweak(String id) {
-		super(id, "lava_tweak.name", "lava_tweak.desc", false);
-		this.FOG_DENSITY = new ConfigFloatValue(0.3f, 0f, 3f, "lava_fog_density.comment");
+	public AudioDeviceTweak(String id) {
+		super(id, "sounddevice_tweak.name", "sounddevice_tweak.desc");
+		this.PREFERRED_DEVICE = new ConfigStringValue("", "preferred_device");
 	}
 
 	@Override
@@ -24,14 +24,14 @@ public class LavaTweak extends AbstractTweak {
 	public HashMap<String, ConfigValue<?>> getConfiguration() {
 		HashMap<String, ConfigValue<?>> config = new HashMap<String, ConfigValue<?>>();
 		config.put("activated", this.ACTIVATED);
-		config.put("fog_density", this.FOG_DENSITY);
+		config.put("preferred_device", this.PREFERRED_DEVICE);
 		return config;
 	}
 
 	@Override
 	public void setFromConfiguration(HashMap<String, Object> configuration) throws InvalidConfigurationException {
 		this.ACTIVATED.set((boolean)configuration.get("activated"));
-		this.FOG_DENSITY.set(((Double)configuration.get("fog_density")).floatValue());
+		this.PREFERRED_DEVICE.set((String)configuration.get("preferred_device"));
 	}
 
 }

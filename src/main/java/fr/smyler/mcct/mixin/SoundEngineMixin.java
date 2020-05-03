@@ -21,8 +21,6 @@ import net.minecraft.client.sound.SoundEngine;
 public abstract class SoundEngineMixin implements TweakedSoundEngine{
 
 	@Shadow private long devicePointer;
-	
-	private static String preferredDevice = null;
 
 	@Override
 	public String getCurrentDevice() throws ExtensionNotSupportedException {
@@ -36,12 +34,6 @@ public abstract class SoundEngineMixin implements TweakedSoundEngine{
 	@Override
 	public List<String> getAllDevices() throws ExtensionNotSupportedException {
 		return SoundHelper.getAllAvailableDevices();
-	}
-
-	@Override
-	public void setPreferredDevice(String deviceName) {
-		SoundEngineMixin.preferredDevice = deviceName;
-		MCCT.LOGGER.info("Changed preferred audio device to " + deviceName);
 	}
 
 	private static long openDevice(String deviceName) {
@@ -59,7 +51,8 @@ public abstract class SoundEngineMixin implements TweakedSoundEngine{
 	@Inject(at=@At("HEAD"), method="openDevice()J", cancellable=true)
 	private static void proxyOpenDevice(CallbackInfoReturnable<Long> info) {
 		if(!Tweaks.SOUND_DEVICE.isActivated()) return;
-		if(preferredDevice != null) {
+		String preferredDevice = Tweaks.SOUND_DEVICE.PREFERRED_DEVICE.get();
+		if(preferredDevice != "") {
 			try {
 				if(SoundHelper.getAllAvailableDevices().contains(preferredDevice)) {
 					MCCT.LOGGER.info("Openning preferred audio device " + preferredDevice);

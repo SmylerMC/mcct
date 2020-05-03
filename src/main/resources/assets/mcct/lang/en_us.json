@@ -7,7 +7,8 @@
     "mcct.swaphandinv_tweak.name": "Swap hand key in inventory",
     "mcct.swaphandinv_tweak.desc": "Lets you use the swap hand key in the survival inventory, just like the hotbar keys.",
     "mcct.sounddevice_tweak.name": "Sound output device",
-    "mcct.sounddevice_tweak.desc": "Lets you change the audio device in the sound/music menu.",
+    "mcct.sounddevice_tweak.desc": "Lets you change the audio device in the Music & Sound menu. You should use the Music & Sound menu to easily set the device's name.",
+    "mcct.configvalues.preferred_device": "Exact name of the audio device to use (blank for default)",
     "mcct.lava_tweak.name": "Lava fog",
     "mcct.lava_tweak.desc": "The vanilla lava fog is so dense you can't see anything. The vanilla density value is 2.0, and a value of 0 means no fog at all.",
     "mcct.configvalues.fog_density": "Lava fog density"

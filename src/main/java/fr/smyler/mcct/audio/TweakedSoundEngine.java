@@ -9,7 +9,5 @@ public interface TweakedSoundEngine {
 	public String getCurrentDevice() throws ExtensionNotSupportedException;
 	
 	public List<String> getAllDevices() throws ExtensionNotSupportedException;
-	
-	public void setPreferredDevice(String device);
 
 }

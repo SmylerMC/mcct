@@ -17,6 +17,7 @@ import net.minecraft.container.SlotActionType;
 import net.minecraft.text.Text;
 
 //TODO Only works with the survival inventory, implement it for creative
+//FIXME Quantity problem when swapping two stacks of the same item
 @Mixin(ContainerScreen.class)
 public abstract class SwitchHandsTweakMixin<T extends Container> extends Screen implements ContainerProvider<T> {
 

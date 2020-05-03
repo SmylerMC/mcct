@@ -41,7 +41,7 @@ public class TestTweak extends AbstractTweak {
 	@Override
 	public HashMap<String, ConfigValue<?>> getConfiguration() {
 		HashMap<String, ConfigValue<?>> conf = new HashMap<String, ConfigValue<?>>();
-		conf.put("activated", this.activated);
+		conf.put("activated", this.ACTIVATED);
 		conf.put("boolVal", this.aBooleanValue1);
 		conf.put("intVal", this.anIntValue);
 		conf.put("floatVal", this.aFloatValue);
@@ -58,7 +58,7 @@ public class TestTweak extends AbstractTweak {
 
 	@Override
 	public void setFromConfiguration(HashMap<String, Object> configuration) throws InvalidConfigurationException {
-		this.activated.set((boolean)configuration.get("activated"));
+		this.ACTIVATED.set((boolean)configuration.get("activated"));
 		this.aBooleanValue1.set((boolean)configuration.get("boolVal"));
 		this.aBooleanValue2.set((boolean)configuration.get("boolVal2"));
 		this.aBooleanValue3.set((boolean)configuration.get("boolVal3"));

@@ -11,7 +11,7 @@ import net.minecraft.client.resource.language.I18n;
 
 public abstract class AbstractTweak {
 	
-	protected final ConfigBooleanValue activated;
+	protected final ConfigBooleanValue ACTIVATED;
 
 	protected final String id;
 	
@@ -20,7 +20,7 @@ public abstract class AbstractTweak {
 	
 	public AbstractTweak(String id, String name, String longDescription, boolean onByDefault) {
 		this.id = id;
-		this.activated = new ConfigBooleanValue(onByDefault, "activated");
+		this.ACTIVATED = new ConfigBooleanValue(onByDefault, "activated");
 		this.displayNameKey = MCCT.MOD_ID + "." + name;
 		this.longDescriptionKey = MCCT.MOD_ID + "." + longDescription;
 		Tweaks.registerTweak(this);
@@ -64,12 +64,12 @@ public abstract class AbstractTweak {
 	}
 	
 	public boolean isActivated() {
-		return this.activated.get();
+		return this.ACTIVATED.get();
 	}
 	
 	public void setActivated(boolean activated) {
 		try {
-			this.activated.set(activated);
+			this.ACTIVATED.set(activated);
 		} catch (InvalidConfigValue e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -112,6 +112,11 @@ public class ConfigValueListWidget extends ElementListWidget<ConfigValueListWidg
 			return I18n.translate(MCCT.MOD_ID + ".configvalues." + this.key);
 		}
 		
+		public void resetValue() {
+			this.configValue.reset();
+			this.updateFromValue();
+		}
+		
 		public abstract void updateFromValue() ;
 
 	}
@@ -158,9 +163,9 @@ public class ConfigValueListWidget extends ElementListWidget<ConfigValueListWidg
 		public void render(int index, int y, int x, int width, int height, int mouseX, int mouseY, boolean hovering, float delta) {
 			this.renderBackground(index, y, x, width, height, mouseX, mouseY, hovering, delta);
 			if(this.slider != null) {
-				this.slider.x = x + 5;
+				this.slider.setWidth(Math.min(width - 20, 390));
 				this.slider.y = y + 26;
-				this.slider.setWidth(width - 20);
+				this.slider.x = x + (x - slider.getWidth())/2 - 12;
 				this.slider.render(mouseX, mouseY, delta);
 			}
 			this.textField.x = x + width - this.textField.getWidth() - 16;
@@ -177,7 +182,6 @@ public class ConfigValueListWidget extends ElementListWidget<ConfigValueListWidg
 			if(this.slider != null) children.add(this.slider);
 			return children;
 		}
-
 
 		@Override
 		public void updateFromValue() {
@@ -228,9 +232,9 @@ public class ConfigValueListWidget extends ElementListWidget<ConfigValueListWidg
 		public void render(int index, int y, int x, int width, int height, int mouseX, int mouseY, boolean hovering, float delta) {
 			this.renderBackground(index, y, x, width, height, mouseX, mouseY, hovering, delta);
 			if(this.slider != null) {
-				this.slider.x = x + 5;
+				this.slider.setWidth(Math.min(width - 20, 390));
 				this.slider.y = y + 26;
-				this.slider.setWidth(width - 20);
+				this.slider.x = x + (x - slider.getWidth())/2 - 12;
 				this.slider.render(mouseX, mouseY, delta);
 			}
 			this.textField.x = x + width - this.textField.getWidth() - 16;

@@ -1,0 +1,13 @@
+{
+    "mcct.configscreen.title": "MC Client Tweaks Configuration",
+    "mcct.configscreen.default": "Reset all to default",
+    "mcct.configscreen.valuesdefault": "Reset tweak configuration to default",
+    "mcct.swaphandinv_tweak.name": "Swap hand key in inventory",
+    "mcct.swaphandinv_tweak.desc": "Lets you use the swap hand key in the survival inventory, just like the hotbar keys.",
+    "mcct.sounddevice_tweak.name": "Sound output device",
+    "mcct.sounddevice_tweak.desc": "Lets you change the audio device in the sound/music menu.",
+    "mcct.configscreen.tweakconfig": "Tweak configuration:",
+    "mcct.configscreen.selecttweak": "Select a tweak in the list to configure it or get more information about it",
+    "mcct.testtweak.name": "Test Tweak (DEV)",
+    "mcct.testtweak.desc": "A Simple test tweak with a long description. This is used for debuging, end-users should never be able to read this, unless they are smart enough to look at the sources."
+}

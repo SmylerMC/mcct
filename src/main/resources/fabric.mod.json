@@ -20,7 +20,10 @@
   "environment": "*",
   "entrypoints": {
     "client": [
-      "fr.smyler.mcct.MCCT"
+        "fr.smyler.mcct.MCCT"
+    ],
+    "modmenu": [
+        "fr.smyler.mcct.MCCTModMenuAPI"
     ]
   },
   "mixins": [

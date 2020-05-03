@@ -21,6 +21,9 @@ dependencies {
 
 	// PSA: Some older mods, compiled on Loom 0.2.1, might have outdated Maven POMs.
 	// You may need to force-disable transitiveness on them.
+	
+	//Mod menu
+	modCompile 'io.github.prospector:modmenu:1.10.2+build.32'
 }
 
 processResources {
@@ -75,3 +78,8 @@ publishing {
 		// mavenLocal()
 	}
 }
+
+repositories {
+    maven { url 'https://maven.fabricmc.net/io/github/prospector/modmenu/' }
+}
+

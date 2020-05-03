@@ -18,12 +18,16 @@ public abstract class AbstractTweak {
 	protected String displayNameKey;
 	protected String longDescriptionKey;
 	
-	public AbstractTweak(String id, String name, String longDescription) {
+	public AbstractTweak(String id, String name, String longDescription, boolean onByDefault) {
 		this.id = id;
-		this.activated = new ConfigBooleanValue(true, "activated");
+		this.activated = new ConfigBooleanValue(onByDefault, "activated");
 		this.displayNameKey = MCCT.MOD_ID + "." + name;
 		this.longDescriptionKey = MCCT.MOD_ID + "." + longDescription;
 		Tweaks.registerTweak(this);
+	}
+	
+	public AbstractTweak(String id, String name, String longDescription) {
+		this(id, name, longDescription, true);
 	}
 	
 	/**

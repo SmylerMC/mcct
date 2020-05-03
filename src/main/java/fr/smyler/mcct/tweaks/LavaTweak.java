@@ -11,8 +11,8 @@ public class LavaTweak extends AbstractTweak {
 	public final ConfigFloatValue FOG_DENSITY;
 
 	public LavaTweak(String id) {
-		super(id, "lava_tweak.name", "lava_tweak.desc");
-		this.FOG_DENSITY = new ConfigFloatValue(0.75f, 0f, 3f, "lava_fog_density.comment");
+		super(id, "lava_tweak.name", "lava_tweak.desc", false);
+		this.FOG_DENSITY = new ConfigFloatValue(0.3f, 0f, 3f, "lava_fog_density.comment");
 	}
 
 	@Override

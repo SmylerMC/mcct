@@ -46,13 +46,13 @@ public class TestTweak extends AbstractTweak {
 		conf.put("intVal", this.anIntValue);
 		conf.put("floatVal", this.aFloatValue);
 		conf.put("stringVal", this.aStringValue);
-		conf.put("boolVal", this.aBooleanValue2);
-		conf.put("boolVal", this.aBooleanValue3);
-		conf.put("boolVal", this.aBooleanValue4);
-		conf.put("boolVal", this.aBooleanValue5);
-		conf.put("boolVal", this.aBooleanValue6);
-		conf.put("boolVal", this.aBooleanValue7);
-		conf.put("boolVal", this.aBooleanValue8);
+		conf.put("boolVal2", this.aBooleanValue2);
+		conf.put("boolVal3", this.aBooleanValue3);
+		conf.put("boolVal4", this.aBooleanValue4);
+		conf.put("boolVal5", this.aBooleanValue5);
+		conf.put("boolVal6", this.aBooleanValue6);
+		conf.put("boolVal7", this.aBooleanValue7);
+		conf.put("boolVal8", this.aBooleanValue8);
 		return conf;
 	}
 

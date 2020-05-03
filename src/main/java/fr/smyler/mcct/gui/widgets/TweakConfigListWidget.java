@@ -53,6 +53,17 @@ public class TweakConfigListWidget extends ElementListWidget<TweakConfigListWidg
 	protected int getScrollbarPosition() {
 		return this.left + this.width - 5;
 	}
+	
+
+	public void updateFromTweaks() {
+		for(Element element: this.children()) {
+			if(element instanceof TweakEntry) {
+				TweakEntry entry = (TweakEntry)element;
+				entry.updateFromTweak();
+			}
+		}
+		
+	}
 
 	public class TweakEntry extends ElementListWidget.Entry<TweakConfigListWidget.TweakEntry> {
 
@@ -121,6 +132,10 @@ public class TweakConfigListWidget extends ElementListWidget<TweakConfigListWidg
 		
 		public AbstractTweak getTweak() {
 			return this.tweak;
+		}
+		
+		public void updateFromTweak() {
+			this.toggleButton.setToggled(this.tweak.isActivated());
 		}
 
 	}

@@ -12,7 +12,7 @@ import fr.smyler.mcct.config.InvalidConfigurationException;
 
 public abstract class Tweaks {
 	
-	private static HashMap<String, AbstractTweak> tweaks = new HashMap<String, AbstractTweak>();
+	private static final HashMap<String, AbstractTweak> tweaks = new HashMap<String, AbstractTweak>();
 	
 	public static final BasicTweak SWAP_HAND_IN_INVENTORY = new BasicTweak("swap_hand_in_inventory", "swaphandinv_tweak.name", "swaphandinv_tweak.desc");
 	public static final BasicTweak SOUND_DEVICE = new BasicTweak("sound_output_device", "sounddevice_tweak.name", "sounddevice_tweak.desc");
@@ -29,9 +29,8 @@ public abstract class Tweaks {
 	}
 	
 	public static void setToDefault() {
-		//TODO Use new system to reset tweak config
-		Tweaks.SWAP_HAND_IN_INVENTORY.setActivated(true);
-		Tweaks.SOUND_DEVICE.setActivated(true);
+		for(AbstractTweak tweak: tweaks.values())
+			for(ConfigValue<?> value: tweak.getConfiguration().values()) value.reset();
 	}
 	
 	public static String writeToJson() {

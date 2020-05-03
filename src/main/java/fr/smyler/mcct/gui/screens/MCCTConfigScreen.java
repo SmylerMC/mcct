@@ -32,8 +32,10 @@ public class MCCTConfigScreen extends Screen {
 		super.init();
 		ButtonWidget resetButton = new ButtonWidget(this.width / 2 - 155, this.height - 28, 150, 20, I18n.translate(MCCT.MOD_ID + ".configscreen.default"), button ->  {
 			Tweaks.setToDefault();
+			this.widgetTweakList.updateFromTweaks();
+			this.widgetValueList.updateFromTweaks();
 		});
-		resetButton.active = false;
+//		resetButton.active = false;
 		this.widgetTweakList = new TweakConfigListWidget(minecraft, this.width / 2 - 10, this.height - 30, 50, this.height - 50, 30, (oldEntry, newEntry) -> {
 			MCCTConfigScreen.this.widgetValueList.clear();
 			Map<String, ConfigValue<?>> config = newEntry.getTweak().getConfiguration();

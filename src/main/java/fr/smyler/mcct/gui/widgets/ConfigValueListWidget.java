@@ -67,6 +67,16 @@ public class ConfigValueListWidget extends ElementListWidget<ConfigValueListWidg
 	protected int getScrollbarPosition() {
 		return this.left + this.width - 5;
 	}
+	
+	public void updateFromTweaks() {
+		for(Element element: this.children()) {
+			if(element instanceof ValueEntry<?>) {
+				ValueEntry<?> entry = (ValueEntry<?>)element;
+				entry.updateFromValue();
+			}
+		}
+		
+	}
 
 	public abstract class ValueEntry<T extends ConfigValue<?>> extends ElementListWidget.Entry<ConfigValueListWidget.ValueEntry<?>> {
 
@@ -101,12 +111,13 @@ public class ConfigValueListWidget extends ElementListWidget<ConfigValueListWidg
 		public String getLocalizedKey() {
 			return I18n.translate(MCCT.MOD_ID + ".configvalues." + this.key);
 		}
+		
+		public abstract void updateFromValue() ;
 
 	}
 
 	public class IntValueEntry extends ValueEntry<ConfigIntValue> {
 
-		//TODO Implement IntValueEntry
 		private IntSliderWidget slider = null;
 		private TextFieldWidget textField;
 
@@ -167,11 +178,18 @@ public class ConfigValueListWidget extends ElementListWidget<ConfigValueListWidg
 			return children;
 		}
 
+
+		@Override
+		public void updateFromValue() {
+			this.slider.setVal(this.configValue.get());
+			this.textField.setText("" + this.slider.getVal());
+			this.textField.setCursorToStart();
+		}
+
 	}
 
 	public class FloatValueEntry extends ValueEntry<ConfigFloatValue> {
 
-		//TODO Implement FloatValueEntry
 		private FloatSliderWidget slider = null;
 		private TextFieldWidget textField;
 
@@ -184,7 +202,7 @@ public class ConfigValueListWidget extends ElementListWidget<ConfigValueListWidg
 					protected void applyValue() {
 						FloatValueEntry entry = FloatValueEntry.this;
 						entry.configValue.set(this.getVal());
-						entry.textField.setText(""+this.getVal());
+						entry.textField.setText("" + this.getVal());
 						entry.textField.setCursorToStart();
 					}
 					
@@ -229,11 +247,18 @@ public class ConfigValueListWidget extends ElementListWidget<ConfigValueListWidg
 			return children;
 		}
 
+
+		@Override
+		public void updateFromValue() {
+			this.slider.setVal(this.configValue.get());
+			this.textField.setText("" + this.slider.getVal());
+			this.textField.setCursorToStart();
+		}
+
 	}
 
 	public class BooleanValueEntry extends ValueEntry<ConfigBooleanValue> {
 
-		//TODO Implement BooleanValueEntry
 		private ToggleButtonWidget toggleButton;
 
 		public BooleanValueEntry(String key, ConfigBooleanValue configValue) {
@@ -269,11 +294,15 @@ public class ConfigValueListWidget extends ElementListWidget<ConfigValueListWidg
 			return children;
 		}
 
+		@Override
+		public void updateFromValue() {
+			this.toggleButton.setToggled(this.configValue.get());
+		}
+
 	}
 
 	public class StringValueEntry extends ValueEntry<ConfigStringValue> {
 
-		//TODO Implement StringValueEntry
 		private TextFieldWidget textField;
 
 		public StringValueEntry(String key, ConfigStringValue configValue) {
@@ -310,6 +339,13 @@ public class ConfigValueListWidget extends ElementListWidget<ConfigValueListWidg
 			return children;
 		}
 
+
+		@Override
+		public void updateFromValue() {
+			this.textField.setText(this.configValue.get());
+			this.textField.setCursorToStart();
+		}
+
 	}
 
 	public class NullValueEntry extends ValueEntry<ConfigNullValue> {
@@ -330,6 +366,10 @@ public class ConfigValueListWidget extends ElementListWidget<ConfigValueListWidg
 		public List<? extends Element> children() {
 			return new ArrayList<Element>();
 		}
+
+
+		@Override
+		public void updateFromValue() {}
 
 	}
 }

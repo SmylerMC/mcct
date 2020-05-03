@@ -7,6 +7,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 
+import fr.smyler.mcct.tweaks.Tweaks;
 import net.minecraft.client.render.BackgroundRenderer;
 import net.minecraft.client.render.Camera;
 import net.minecraft.tag.FluidTags;
@@ -19,9 +20,6 @@ import net.minecraft.tag.FluidTags;
  */
 @Mixin(BackgroundRenderer.class)
 public abstract class BackgroundRendererMixin {
-
-	// Vanilla default is 2.0F
-	private static float lavaFogDensity = 0.25F; //TODO Have this somewhere else
 
 	/**
 	 * Inject the tweak into applyFog, which is the vanilla fog method
@@ -56,7 +54,8 @@ public abstract class BackgroundRendererMixin {
 	}
 	
 	private static void mcctLavaFogTweak(Camera camera, BackgroundRenderer.FogType fogType, float viewDistance, boolean thickFog) {
-		if (camera.getSubmergedFluidState().matches(FluidTags.LAVA)) RenderSystem.fogDensity(lavaFogDensity);
+		if(!Tweaks.LAVA.isActivated()) return;
+		if (camera.getSubmergedFluidState().matches(FluidTags.LAVA)) RenderSystem.fogDensity(Tweaks.LAVA.FOG_DENSITY.get());
 	}
 
 	

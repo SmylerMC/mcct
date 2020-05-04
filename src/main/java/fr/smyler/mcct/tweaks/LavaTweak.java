@@ -30,8 +30,8 @@ public class LavaTweak extends AbstractTweak {
 
 	@Override
 	public void setFromConfiguration(HashMap<String, Object> configuration) throws InvalidConfigurationException {
-		this.ACTIVATED.set((boolean)configuration.get("activated"));
-		this.FOG_DENSITY.set(((Double)configuration.get("fog_density")).floatValue());
+		this.ACTIVATED.set((boolean)configuration.getOrDefault("activated", this.ACTIVATED.getDefault()));
+		this.FOG_DENSITY.set(((Double)configuration.getOrDefault("fog_density", this.FOG_DENSITY.getDefault())).floatValue());
 	}
 
 }

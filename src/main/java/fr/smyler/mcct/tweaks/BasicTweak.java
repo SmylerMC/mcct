@@ -28,7 +28,7 @@ public class BasicTweak extends AbstractTweak {
 	@Override
 	public void setFromConfiguration(HashMap<String, Object> configuration) {
 		try {
-			this.setActivated((boolean)configuration.get("activated"));
+			this.setActivated((boolean)configuration.getOrDefault("activated", this.ACTIVATED.getDefault()));
 		} catch(ClassCastException e) {
 			throw new InvalidConfigurationException("Invalid config value: " + configuration.getClass().toGenericString());
 		}

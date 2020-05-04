@@ -30,8 +30,8 @@ public class AudioDeviceTweak extends AbstractTweak {
 
 	@Override
 	public void setFromConfiguration(HashMap<String, Object> configuration) throws InvalidConfigurationException {
-		this.ACTIVATED.set((boolean)configuration.get("activated"));
-		this.PREFERRED_DEVICE.set((String)configuration.get("preferred_device"));
+		this.ACTIVATED.set((boolean)configuration.getOrDefault("activated", this.ACTIVATED.getDefault()));
+		this.PREFERRED_DEVICE.set((String)configuration.getOrDefault("preferred_device", this.PREFERRED_DEVICE.getDefault()));
 	}
 
 }

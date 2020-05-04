@@ -58,18 +58,18 @@ public class TestTweak extends AbstractTweak {
 
 	@Override
 	public void setFromConfiguration(HashMap<String, Object> configuration) throws InvalidConfigurationException {
-		this.ACTIVATED.set((boolean)configuration.get("activated"));
-		this.aBooleanValue1.set((boolean)configuration.get("boolVal"));
-		this.aBooleanValue2.set((boolean)configuration.get("boolVal2"));
-		this.aBooleanValue3.set((boolean)configuration.get("boolVal3"));
-		this.aBooleanValue4.set((boolean)configuration.get("boolVal4"));
-		this.aBooleanValue5.set((boolean)configuration.get("boolVal5"));
-		this.aBooleanValue6.set((boolean)configuration.get("boolVal6"));
-		this.aBooleanValue7.set((boolean)configuration.get("boolVal7"));
-		this.aBooleanValue8.set((boolean)configuration.get("boolVal8"));
-		this.anIntValue.set(((Double)configuration.get("intVal")).intValue());
-		this.aFloatValue.set(((Double)configuration.get("floatVal")).floatValue());
-		this.aStringValue.set((String)configuration.get("stringVal"));
+		this.ACTIVATED.set((boolean)configuration.getOrDefault("activated", this.ACTIVATED.getDefault()));
+		this.aBooleanValue1.set((boolean)configuration.getOrDefault("boolVal", this.aBooleanValue1.getDefault()));
+		this.aBooleanValue2.set((boolean)configuration.getOrDefault("boolVal2", this.aBooleanValue2.getDefault()));
+		this.aBooleanValue3.set((boolean)configuration.getOrDefault("boolVal3", this.aBooleanValue3.getDefault()));
+		this.aBooleanValue4.set((boolean)configuration.getOrDefault("boolVal4", this.aBooleanValue4.getDefault()));
+		this.aBooleanValue5.set((boolean)configuration.getOrDefault("boolVal5", this.aBooleanValue5.getDefault()));
+		this.aBooleanValue6.set((boolean)configuration.getOrDefault("boolVal6", this.aBooleanValue6.getDefault()));
+		this.aBooleanValue7.set((boolean)configuration.getOrDefault("boolVal7", this.aBooleanValue7.getDefault()));
+		this.aBooleanValue8.set((boolean)configuration.getOrDefault("boolVal8", this.aBooleanValue8.getDefault()));
+		this.anIntValue.set(((Double)configuration.getOrDefault("intVal", this.anIntValue.getDefault())).intValue());
+		this.aFloatValue.set(((Double)configuration.getOrDefault("floatVal", this.aFloatValue.getDefault())).floatValue());
+		this.aStringValue.set((String)configuration.getOrDefault("stringVal", this.aStringValue.getDefault()));
 	}
 
 }

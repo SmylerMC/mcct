@@ -4,6 +4,8 @@
     "mcct.configscreen.valuesdefault": "Reset tweak configuration to default",
     "mcct.configscreen.tweakconfig": "Tweak configuration:",
     "mcct.configscreen.selecttweak": "Select a tweak in the list to configure it or get more information about it",
+    "mcct.bindings": "MCCT",
+    "key.mcct.openconfig": "Open config screen",
     "mcct.swaphandinv_tweak.name": "Swap hand key in inventory",
     "mcct.swaphandinv_tweak.desc": "Lets you use the swap hand key in the survival inventory, just like the hotbar keys.",
     "mcct.sounddevice_tweak.name": "Sound output device",

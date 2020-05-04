@@ -83,4 +83,9 @@ public class MCCTConfigScreen extends Screen {
 		super.render(mouseX, mouseY, delta);
 	}
 	
+	public static void openNew() {
+		MinecraftClient mc = MinecraftClient.getInstance();
+		mc.openScreen(new MCCTConfigScreen(mc.currentScreen));
+	}
+	
 }

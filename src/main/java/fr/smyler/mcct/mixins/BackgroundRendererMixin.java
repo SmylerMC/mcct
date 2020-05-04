@@ -1,4 +1,4 @@
-package fr.smyler.mcct.mixin;
+package fr.smyler.mcct.mixins;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;

@@ -6,6 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 import com.google.gson.Gson;
@@ -43,7 +44,7 @@ public abstract class Tweaks {
 	}
 	
 	public static String writeToJson() {
-		HashMap<String, HashMap<String, ConfigValue<?>>> configTweaks = new HashMap<String, HashMap<String, ConfigValue<?>>>();
+		Map<String, Map<String, ConfigValue<?>>> configTweaks = new HashMap<String, Map<String, ConfigValue<?>>>();
 		for(String key: tweaks.keySet()) {
 			configTweaks.put(key, tweaks.get(key).getConfiguration());
 		}

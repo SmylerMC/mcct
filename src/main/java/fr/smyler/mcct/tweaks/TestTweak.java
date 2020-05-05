@@ -15,6 +15,7 @@ import fr.smyler.mcct.config.InvalidConfigurationException;
  * @author SmylerMC
  *
  */
+@Deprecated
 public class TestTweak extends AbstractTweak {
 	
 	public final ConfigBooleanValue aBooleanValue1 = new ConfigBooleanValue(true, "mcct.testtweak.booleancomment");
@@ -31,11 +32,6 @@ public class TestTweak extends AbstractTweak {
 
 	public TestTweak(String id) {
 		super(id, "testtweak.name", "testtweak.desc");
-	}
-
-	@Override
-	public boolean hasConfiguration() {
-		return true;
 	}
 
 	@Override

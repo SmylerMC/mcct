@@ -1,18 +1,20 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "fr.smyler.mcct.mixin",
+  "package": "fr.smyler.mcct.mixins",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
   ],
   "client": [
-    "SwitchHandsTweakMixin",
+    "ContainerScreenMixin",
     "SoundManagerMixin",
     "SoundSystemMixin",
     "SoundEngineMixin",
     "SoundOptionScreenTweakMixin",
-    "BackgroundRendererMixin"
-  ],
+    "BackgroundRendererMixin",
+    "RecipeBookWidgetMixin",
+    "RecipeBookResultsMixin"
+],
   "injectors": {
     "defaultRequire": 1
   }

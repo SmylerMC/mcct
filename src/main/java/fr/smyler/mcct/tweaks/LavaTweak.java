@@ -1,6 +1,6 @@
 package fr.smyler.mcct.tweaks;
 
-import java.util.HashMap;
+import java.util.Map;
 
 import fr.smyler.mcct.config.ConfigFloatValue;
 import fr.smyler.mcct.config.ConfigValue;
@@ -16,20 +16,14 @@ public class LavaTweak extends AbstractTweak {
 	}
 
 	@Override
-	public boolean hasConfiguration() {
-		return true;
-	}
-
-	@Override
-	public HashMap<String, ConfigValue<?>> getConfiguration() {
-		HashMap<String, ConfigValue<?>> config = new HashMap<String, ConfigValue<?>>();
-		config.put("activated", this.ACTIVATED);
+	public Map<String, ConfigValue<?>> getConfiguration() {
+		Map<String, ConfigValue<?>> config = this.getBaseConfiguration();
 		config.put("fog_density", this.FOG_DENSITY);
 		return config;
 	}
 
 	@Override
-	public void setFromConfiguration(HashMap<String, Object> configuration) throws InvalidConfigurationException {
+	public void setFromConfiguration(Map<String, Object> configuration) throws InvalidConfigurationException {
 		this.ACTIVATED.set((boolean)configuration.getOrDefault("activated", this.ACTIVATED.getDefault()));
 		this.FOG_DENSITY.set(((Double)configuration.getOrDefault("fog_density", this.FOG_DENSITY.getDefault())).floatValue());
 	}

@@ -1,6 +1,6 @@
 package fr.smyler.mcct.tweaks;
 
-import java.util.HashMap;
+import java.util.Map;
 
 import fr.smyler.mcct.config.ConfigValue;
 import fr.smyler.mcct.config.InvalidConfigurationException;
@@ -14,19 +14,12 @@ public class BasicTweak extends AbstractTweak {
 	}
 
 	@Override
-	public boolean hasConfiguration() {
-		return false;
+	public Map<String, ConfigValue<?>> getConfiguration() {
+		return this.getBaseConfiguration();
 	}
 
 	@Override
-	public HashMap<String, ConfigValue<?>> getConfiguration() {
-		HashMap<String, ConfigValue<?>> config = new HashMap<String, ConfigValue<?>>();
-		config.put("activated", this.ACTIVATED);
-		return config;
-	}
-
-	@Override
-	public void setFromConfiguration(HashMap<String, Object> configuration) {
+	public void setFromConfiguration(Map<String, Object> configuration) {
 		try {
 			this.setActivated((boolean)configuration.getOrDefault("activated", this.ACTIVATED.getDefault()));
 		} catch(ClassCastException e) {

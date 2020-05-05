@@ -1,6 +1,7 @@
 package fr.smyler.mcct.tweaks;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import fr.smyler.mcct.MCCT;
 import fr.smyler.mcct.config.ConfigBooleanValue;
@@ -31,17 +32,21 @@ public abstract class AbstractTweak {
 	}
 	
 	/**
-	 * Should return true if the tweak has any configuration other than its activation state
-	 * 
-	 * @return true if the tweak has any configuration other than its activation state
-	 */
-	public abstract boolean hasConfiguration();
-	
-	/**
 	 * 
 	 * @return The current configuration as a Json serializable object 
 	 */
-	public abstract HashMap<String, ConfigValue<?>> getConfiguration();
+	public abstract Map<String, ConfigValue<?>> getConfiguration();
+	
+	/**
+	 * Just a helper function to call when implementing getConfiguration in order to get a map the the activated config value
+	 * 
+	 * @return A map with the "activated" key associated with the activated config value
+	 */
+	protected Map<String, ConfigValue<?>> getBaseConfiguration() {
+		Map<String, ConfigValue<?>> config = new HashMap<String, ConfigValue<?>>();
+		config.put("activated", ACTIVATED);
+		return config;
+	}
 	
 	/**
 	 * Set the tweak configuration
@@ -50,7 +55,7 @@ public abstract class AbstractTweak {
 	 * @throws InvalidConfigurationException if configuration is not a valid config for this tweak
 	 * 
 	 */
-	public abstract void setFromConfiguration(HashMap<String, Object> configuration) throws InvalidConfigurationException ;
+	public abstract void setFromConfiguration(Map<String, Object> configuration) throws InvalidConfigurationException ;
 	
 	public String getId() {
 		return this.id;

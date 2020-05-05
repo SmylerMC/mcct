@@ -1,6 +1,7 @@
 package fr.smyler.mcct.tweaks;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import fr.smyler.mcct.config.ConfigBooleanValue;
 import fr.smyler.mcct.config.ConfigFloatValue;
@@ -35,8 +36,8 @@ public class TestTweak extends AbstractTweak {
 	}
 
 	@Override
-	public HashMap<String, ConfigValue<?>> getConfiguration() {
-		HashMap<String, ConfigValue<?>> conf = new HashMap<String, ConfigValue<?>>();
+	public Map<String, ConfigValue<?>> getConfiguration() {
+		Map<String, ConfigValue<?>> conf = new HashMap<String, ConfigValue<?>>();
 		conf.put("activated", this.ACTIVATED);
 		conf.put("boolVal", this.aBooleanValue1);
 		conf.put("intVal", this.anIntValue);
@@ -53,7 +54,7 @@ public class TestTweak extends AbstractTweak {
 	}
 
 	@Override
-	public void setFromConfiguration(HashMap<String, Object> configuration) throws InvalidConfigurationException {
+	public void setFromConfiguration(Map<String, Object> configuration) throws InvalidConfigurationException {
 		this.ACTIVATED.set((boolean)configuration.getOrDefault("activated", this.ACTIVATED.getDefault()));
 		this.aBooleanValue1.set((boolean)configuration.getOrDefault("boolVal", this.aBooleanValue1.getDefault()));
 		this.aBooleanValue2.set((boolean)configuration.getOrDefault("boolVal2", this.aBooleanValue2.getDefault()));

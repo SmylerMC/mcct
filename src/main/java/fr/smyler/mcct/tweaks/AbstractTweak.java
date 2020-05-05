@@ -55,7 +55,7 @@ public abstract class AbstractTweak {
 	 * @throws InvalidConfigurationException if configuration is not a valid config for this tweak
 	 * 
 	 */
-	public abstract void setFromConfiguration(HashMap<String, Object> configuration) throws InvalidConfigurationException ;
+	public abstract void setFromConfiguration(Map<String, Object> configuration) throws InvalidConfigurationException ;
 	
 	public String getId() {
 		return this.id;

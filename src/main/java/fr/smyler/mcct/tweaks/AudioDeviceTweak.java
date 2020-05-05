@@ -1,6 +1,5 @@
 package fr.smyler.mcct.tweaks;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import fr.smyler.mcct.config.ConfigStringValue;
@@ -24,7 +23,7 @@ public class AudioDeviceTweak extends AbstractTweak {
 	}
 
 	@Override
-	public void setFromConfiguration(HashMap<String, Object> configuration) throws InvalidConfigurationException {
+	public void setFromConfiguration(Map<String, Object> configuration) throws InvalidConfigurationException {
 		this.ACTIVATED.set((boolean)configuration.getOrDefault("activated", this.ACTIVATED.getDefault()));
 		this.PREFERRED_DEVICE.set((String)configuration.getOrDefault("preferred_device", this.PREFERRED_DEVICE.getDefault()));
 	}

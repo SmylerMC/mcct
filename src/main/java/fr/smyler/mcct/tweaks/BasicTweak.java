@@ -1,6 +1,5 @@
 package fr.smyler.mcct.tweaks;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import fr.smyler.mcct.config.ConfigValue;
@@ -20,7 +19,7 @@ public class BasicTweak extends AbstractTweak {
 	}
 
 	@Override
-	public void setFromConfiguration(HashMap<String, Object> configuration) {
+	public void setFromConfiguration(Map<String, Object> configuration) {
 		try {
 			this.setActivated((boolean)configuration.getOrDefault("activated", this.ACTIVATED.getDefault()));
 		} catch(ClassCastException e) {

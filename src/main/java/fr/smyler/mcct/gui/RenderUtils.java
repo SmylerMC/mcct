@@ -19,7 +19,7 @@ public abstract class RenderUtils {
 			for(; i < segments.size() && textRenderer.getStringWidth(dispString + segments.get(i)) < width; i++) {
 				dispString += " " + segments.get(i);
 			}
-			segments.removeAll(segments.subList(0, i));
+			for(int k=0; k<i; k++) segments.remove(0);
 			textRenderer.draw(dispString, x, pos, color);
 			pos += textRenderer.fontHeight * 1.5;
 		}

@@ -13,7 +13,8 @@
     "SoundOptionScreenTweakMixin",
     "BackgroundRendererMixin",
     "RecipeBookWidgetMixin",
-    "RecipeBookResultsMixin"
+    "RecipeBookResultsMixin",
+    "AbstractFurnaceScreenMixin"
 ],
   "injectors": {
     "defaultRequire": 1

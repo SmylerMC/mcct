@@ -43,6 +43,7 @@ public class MCCTConfigScreen extends Screen {
 			config.remove("activated");
 			this.resetValuesButton.active = config.size() > 0;
 			MCCTConfigScreen.this.widgetValueList.addAll(config);
+			MCCTConfigScreen.this.widgetValueList.setScrollAmount(0);
 		});
 		this.widgetTweakList.setLeftPos(5);
 		this.widgetValueList = new ConfigValueListWidget(minecraft, this.width / 2 - 10, this.height, this.height / 2, this.height - 50, 55);

@@ -17,7 +17,6 @@ import net.minecraft.container.SlotActionType;
 import net.minecraft.text.Text;
 
 //TODO Only works with the survival inventory, implement it for creative
-//FIXME Quantity problem when swapping two stacks of the same item
 @Mixin(ContainerScreen.class)
 public abstract class ContainerScreenMixin<T extends Container> extends Screen implements ContainerProvider<T> {
 
@@ -32,9 +31,27 @@ public abstract class ContainerScreenMixin<T extends Container> extends Screen i
 		if(!Tweaks.INVENTORY.isActivated() || !Tweaks.INVENTORY.SWAP_HAND_KEY_IN_INVENTORY.get()) return;
 		if (this.minecraft.player.inventory.getCursorStack().isEmpty() && this.focusedSlot != null && this.focusedSlot.id >= 9 && this.focusedSlot.id != 45) {
 			if (minecraft.options.keySwapHands.matchesKey(keyCode, scanCode) && this.minecraft.currentScreen instanceof InventoryScreen) {
-				minecraft.interactionManager.clickSlot(this.getContainer().syncId, 45, 0, SlotActionType.PICKUP, this.minecraft.player);
-				minecraft.interactionManager.clickSlot(this.getContainer().syncId, this.focusedSlot.id, 0, SlotActionType.PICKUP, this.minecraft.player);
-				minecraft.interactionManager.clickSlot(this.getContainer().syncId, 45, 0, SlotActionType.PICKUP, this.minecraft.player);
+				Slot offHandSlot = this.getContainer().getSlot(45);
+				int syncId = this.getContainer().syncId;
+				if(offHandSlot.getStack().isItemEqualIgnoreDamage(this.focusedSlot.getStack())) {
+					Slot startSlot;
+					Slot destSlot;
+					if(offHandSlot.getStack().getCount() > this.focusedSlot.getStack().getCount()) {
+						startSlot = offHandSlot;
+						destSlot = this.focusedSlot;
+					} else {
+						startSlot = this.focusedSlot;
+						destSlot = offHandSlot;
+					}
+					int diff = startSlot.getStack().getCount() - destSlot.getStack().getCount();
+					minecraft.interactionManager.clickSlot(syncId, startSlot.id, 0, SlotActionType.PICKUP, this.minecraft.player);
+					while(diff-- > 0) minecraft.interactionManager.clickSlot(syncId, destSlot.id, 1, SlotActionType.PICKUP, this.minecraft.player);
+					minecraft.interactionManager.clickSlot(syncId, startSlot.id, 0, SlotActionType.PICKUP, this.minecraft.player);
+				} else {
+					minecraft.interactionManager.clickSlot(syncId, 45, 0, SlotActionType.PICKUP, this.minecraft.player);
+					minecraft.interactionManager.clickSlot(syncId, this.focusedSlot.id, 0, SlotActionType.PICKUP, this.minecraft.player);
+					minecraft.interactionManager.clickSlot(syncId, 45, 0, SlotActionType.PICKUP, this.minecraft.player);
+				}
 			}
 		}
 	}

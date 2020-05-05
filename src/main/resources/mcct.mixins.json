@@ -11,8 +11,10 @@
     "SoundSystemMixin",
     "SoundEngineMixin",
     "SoundOptionScreenTweakMixin",
-    "BackgroundRendererMixin"
-  ],
+    "BackgroundRendererMixin",
+    "RecipeBookWidgetMixin",
+    "RecipeBookResultsMixin"
+],
   "injectors": {
     "defaultRequire": 1
   }

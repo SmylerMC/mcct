@@ -29,7 +29,7 @@ public abstract class SwitchHandsTweakMixin<T extends Container> extends Screen 
 
 	@Inject(at=@At("HEAD"), method="handleHotbarKeyPressed")
 	private void handleHotbarKeyPressed(int keyCode, int scanCode, CallbackInfoReturnable<Boolean> info) {
-		if(!Tweaks.SWAP_HAND_IN_INVENTORY.isActivated()) return;
+		if(!Tweaks.INVENTORY.isActivated() || !Tweaks.INVENTORY.SWAP_HAND_KEY_IN_INVENTORY.get()) return;
 		if (this.minecraft.player.inventory.getCursorStack().isEmpty() && this.focusedSlot != null && this.focusedSlot.id >= 9) {
 			if (minecraft.options.keySwapHands.matchesKey(keyCode, scanCode) && this.minecraft.currentScreen instanceof InventoryScreen) {
 				minecraft.interactionManager.clickSlot(this.getContainer().syncId, 45, 0, SlotActionType.PICKUP, this.minecraft.player);

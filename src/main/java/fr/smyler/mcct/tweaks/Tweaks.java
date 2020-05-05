@@ -23,7 +23,7 @@ public abstract class Tweaks {
 	
 	private static final HashMap<String, AbstractTweak> tweaks = new HashMap<String, AbstractTweak>();
 	
-	public static final BasicTweak SWAP_HAND_IN_INVENTORY = new BasicTweak("swap_hand_in_inventory", "swaphandinv_tweak.name", "swaphandinv_tweak.desc");
+	public static final InventoryTweak INVENTORY = new InventoryTweak("inventory");
 	public static final AudioDeviceTweak SOUND_DEVICE = new AudioDeviceTweak("sound_output_device");
 	public static final LavaTweak LAVA = new LavaTweak("lava");
 	//public static final TestTweak TEST_TWEAK = new TestTweak("test");

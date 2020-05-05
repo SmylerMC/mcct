@@ -7,6 +7,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import fr.smyler.mcct.gui.screens.recipebook.TweakedRecipeBookResults;
+import fr.smyler.mcct.tweaks.Tweaks;
 import net.minecraft.client.gui.Drawable;
 import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.gui.Element;
@@ -26,7 +27,7 @@ public abstract class RecipeBookWidgetMixin extends DrawableHelper implements Dr
 
 	@Override
 	public boolean mouseScrolled(double mouseX, double mouseY, double amount) {
-		//TODO Tweak switch
+		if(!Tweaks.INVENTORY.isActivated() || !Tweaks.INVENTORY.MOUSE_WHEEL_IN_RECIPE_BOOK.get()) return false;
 		TweakedRecipeBookResults recipeBook = (TweakedRecipeBookResults) this.recipesArea;
 		if(amount < 0) recipeBook.nextPageIfPossible();
 		else if(amount > 0) recipeBook.prevPageIfPossible();
@@ -36,7 +37,7 @@ public abstract class RecipeBookWidgetMixin extends DrawableHelper implements Dr
 	@Inject(at=@At("HEAD"), method="isMouseOver(DD)Z", cancellable=true)
 	public void isMouseOverTweak(double mouseX, double mouseY, CallbackInfoReturnable<Boolean> info) {
 		//For some reason the vanilla behavior is to always return false, which causes the parent screen to never call mouseScrolled
-		//TODO Tweak switch
+		if(!Tweaks.INVENTORY.isActivated() || !Tweaks.INVENTORY.MOUSE_WHEEL_IN_RECIPE_BOOK.get()) return;
 		int x = (this.parentWidth - 147) / 2 - this.leftOffset;
 		int y = (this.parentHeight - 166) / 2;
 		boolean returned =  mouseX >= x && mouseY >= y && mouseX <= x + 147 && mouseY <= y + 166;

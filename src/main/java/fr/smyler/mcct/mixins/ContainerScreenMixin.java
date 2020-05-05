@@ -19,9 +19,9 @@ import net.minecraft.text.Text;
 //TODO Only works with the survival inventory, implement it for creative
 //FIXME Quantity problem when swapping two stacks of the same item
 @Mixin(ContainerScreen.class)
-public abstract class SwitchHandsTweakMixin<T extends Container> extends Screen implements ContainerProvider<T> {
+public abstract class ContainerScreenMixin<T extends Container> extends Screen implements ContainerProvider<T> {
 
-	protected SwitchHandsTweakMixin(Text title) {
+	protected ContainerScreenMixin(Text title) {
 		super(title);
 	}
 

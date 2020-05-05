@@ -6,7 +6,7 @@
   "mixins": [
   ],
   "client": [
-    "SwitchHandsTweakMixin",
+    "ContainerScreenMixin",
     "SoundManagerMixin",
     "SoundSystemMixin",
     "SoundEngineMixin",

@@ -29,8 +29,10 @@ public abstract class RecipeBookWidgetMixin extends DrawableHelper implements Dr
 	public boolean mouseScrolled(double mouseX, double mouseY, double amount) {
 		if(!Tweaks.INVENTORY.isActivated() || !Tweaks.INVENTORY.MOUSE_WHEEL_IN_RECIPE_BOOK.get()) return false;
 		TweakedRecipeBookResults recipeBook = (TweakedRecipeBookResults) this.recipesArea;
-		if(amount < 0) recipeBook.nextPageIfPossible();
-		else if(amount > 0) recipeBook.prevPageIfPossible();
+		double direction = amount;
+		if(Tweaks.INVENTORY.INVERTED_MOUSE_WHEEL.get()) direction *= -1;
+		if(direction < 0) recipeBook.nextPageIfPossible();
+		else if(direction > 0) recipeBook.prevPageIfPossible();
 		return false; //TODO true?
 	}
 

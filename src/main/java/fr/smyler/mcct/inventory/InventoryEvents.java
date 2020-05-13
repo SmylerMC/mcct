@@ -3,6 +3,8 @@ package fr.smyler.mcct.inventory;
 import fr.smyler.mcct.gui.toasts.GenericToast;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 
 
 //TODO lang files
@@ -21,6 +23,6 @@ public abstract class InventoryEvents {
 	}
 	
 	public static void onInventoryBecomesFull() {
-		MinecraftClient.getInstance().getToastManager().add(new GenericToast("mcct.toast.invfull.name", "mcct.toast.invfull.desc"));
+		MinecraftClient.getInstance().getToastManager().add(new GenericToast("mcct.toast.invfull.name", null, new ItemStack(Items.CHEST)));
 	}
 }

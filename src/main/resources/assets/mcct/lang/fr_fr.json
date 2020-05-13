@@ -16,5 +16,6 @@
     "mcct.configvalues.preferred_device": "Nom exact du périphérique à utiliser",
     "mcct.lava_tweak.name": "Brouillard de lave",
     "mcct.lava_tweak.desc": "Le brouillard présent sous la lave en vanilla rend vaine toute tentative d'y faire quoi que ce sois. Ajuster sa densité pour pouvoir vous reperer sous la lave. La densité vanilla est de 2.0 et une densité de 0 rend le brouillard inexistant.",
-    "mcct.configvalues.fog_density": "Densité du brouillard de lave"
+    "mcct.configvalues.fog_density": "Densité du brouillard de lave",
+    "mcct.toast.invfull.name": "Votre inventaire est plein!"
 }

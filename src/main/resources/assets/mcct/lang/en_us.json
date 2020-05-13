@@ -16,5 +16,6 @@
     "mcct.configvalues.preferred_device": "Exact name of the audio device to use (blank for default)",
     "mcct.lava_tweak.name": "Lava fog",
     "mcct.lava_tweak.desc": "The vanilla lava fog is so dense you can't see anything. The vanilla density value is 2.0, and a value of 0 means no fog at all.",
-    "mcct.configvalues.fog_density": "Lava fog density"
+    "mcct.configvalues.fog_density": "Lava fog density",
+    "mcct.toast.invfull.name": "Your inventory is full!"
 }

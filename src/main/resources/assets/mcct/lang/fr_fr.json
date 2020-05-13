@@ -19,4 +19,11 @@
     "mcct.configvalues.fog_density": "Densité du brouillard de lave",
     "mcct.toast.invfull.name": "Votre inventaire est plein!"
     "mcct.configvalues.alert_on_full_inventory": "Prévenir quand l'inventaire est plein",
+    "mcct.toast_tweak.name": "Toasts",
+    "mcct.toast_tweak.desc": "Les toasts sont apparaissent en haut à droite du jeu quand certains évenements ce produisent (ex: vous avez débloqué une nouvelle recette). Vous pouvez ne pas les vouloir, et ils sont donc configurables ici",
+    "mcct.configvalues.hide_all_toasts": "Cacher TOUT les toasts",
+    "mcct.configvalues.show_system_toasts": "Afficher les toasts système",
+    "mcct.configvalues.show_recipe_toasts": "Afficher les toasts de recette",
+    "mcct.configvalues.show_advancement_toasts": "Afficher les toasts de succès",
+    "mcct.configvalues.show_tutorial_toasts": "Afficher les toats du tutoriel"
 }

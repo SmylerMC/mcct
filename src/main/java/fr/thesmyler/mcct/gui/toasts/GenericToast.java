@@ -2,10 +2,11 @@ package fr.thesmyler.mcct.gui.toasts;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.resource.language.I18n;
 import net.minecraft.client.toast.Toast;
 import net.minecraft.client.toast.ToastManager;
-import net.minecraft.entity.LivingEntity;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
 
 public class GenericToast implements Toast {
@@ -22,26 +23,28 @@ public class GenericToast implements Toast {
 		this.icon = icon;
 	}
 		
-
-	@SuppressWarnings("resource")
 	@Override
-	public Visibility draw(ToastManager manager, long currentTime) {
+	public Visibility draw(MatrixStack matrices, ToastManager manager, long currentTime) {
 		if (this.justUpdated) {
 			this.startTime = currentTime;
 			this.justUpdated = false;
 		}
 
-		manager.getGame().getTextureManager().bindTexture(TEXTURE);
+		MinecraftClient client = manager.getGame();
+		client.getTextureManager().bindTexture(TEXTURE);
 		RenderSystem.color3f(1.0F, 1.0F, 1.0F);
-		manager.blit(0, 0, 0, 32, 160, 32);
+		manager.drawTexture(matrices, 0, 0, 0, 32, 160, 32);
 		float xpos = this.icon != null ? 30: 10;
 		if (this.descriptionKey == null) {
-			manager.getGame().textRenderer.draw(this.getLocalizedTitle(), xpos, 12, 0x000000);
+			client.textRenderer.draw(matrices, this.getLocalizedTitle(), xpos, 12, 0x000000);
 		} else {
-			manager.getGame().textRenderer.draw(this.getLocalizedTitle(), xpos, 7, 0x000000);
-			manager.getGame().textRenderer.draw(this.getLocalizedDescription(), xpos, 18, 0xFF2222);
+			client.textRenderer.draw(matrices, this.getLocalizedTitle(), xpos, 7, 0x000000);
+			client.textRenderer.draw(matrices, this.getLocalizedDescription(), xpos, 18, 0xFF2222);
 		}
-		if(this.icon != null) manager.getGame().getItemRenderer().innerRenderInGui((LivingEntity)null, this.icon, 8, 8);
+		
+		//FIXME method visibility changed
+		//if(this.icon != null) manager.getGame().getItemRenderer().innerRenderInGui((LivingEntity)null, this.icon, 8, 8);
+		
 		return currentTime - this.startTime < 5000L ? Toast.Visibility.SHOW : Toast.Visibility.HIDE;
 	}
 	

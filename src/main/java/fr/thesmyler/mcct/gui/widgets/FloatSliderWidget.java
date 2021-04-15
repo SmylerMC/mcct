@@ -1,6 +1,7 @@
 package fr.thesmyler.mcct.gui.widgets;
 
 import net.minecraft.client.gui.widget.SliderWidget;
+import net.minecraft.text.Text;
 
 public abstract class FloatSliderWidget extends SliderWidget {
 	
@@ -8,7 +9,7 @@ public abstract class FloatSliderWidget extends SliderWidget {
 	protected float max;
 
 	public FloatSliderWidget(int x, int y, int width, int height, float value, float min, float max) {
-		super(x, y, width, height, 0);
+		super(x, y, width, height, Text.of(""), 0);
 		this.min = min;
 		this.max = max;
 		this.setVal(value);
@@ -17,7 +18,7 @@ public abstract class FloatSliderWidget extends SliderWidget {
 
 	@Override
 	protected void updateMessage() {
-		this.setMessage("" + this.getVal());
+		this.setMessage(Text.of("" + this.getVal()));
 	}
 	
 	public float getVal() {

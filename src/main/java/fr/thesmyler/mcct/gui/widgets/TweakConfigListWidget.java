@@ -10,6 +10,7 @@ import fr.thesmyler.mcct.MCCT;
 import fr.thesmyler.mcct.tweaks.AbstractTweak;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
+import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.gui.Element;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.ElementListWidget;
@@ -17,6 +18,8 @@ import net.minecraft.client.gui.widget.ToggleButtonWidget;
 import net.minecraft.client.render.BufferBuilder;
 import net.minecraft.client.render.Tessellator;
 import net.minecraft.client.render.VertexFormats;
+import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
 public class TweakConfigListWidget extends ElementListWidget<TweakConfigListWidget.TweakEntry> {
@@ -49,10 +52,11 @@ public class TweakConfigListWidget extends ElementListWidget<TweakConfigListWidg
 		return this.width;
 	}
 
-	@Override
-	protected int getScrollbarPosition() {
-		return this.left + this.width - 5;
-	}
+	//FIXME
+//	@Override
+//	protected int getScrollbarPosition() {
+//		return this.left + this.width - 5;
+//	}
 	
 
 	public void updateFromTweaks() {
@@ -86,7 +90,7 @@ public class TweakConfigListWidget extends ElementListWidget<TweakConfigListWidg
 
 			};
 			this.toggleButton.setTextureUV(2, 2, 28, 18, new Identifier(MCCT.MOD_ID, "textures/gui/widgets.png"));
-			this.mainButton = new ButtonWidget(0, 0, TweakConfigListWidget.this.width, TweakConfigListWidget.this.itemHeight, "", button ->  {
+			this.mainButton = new ButtonWidget(0, 0, TweakConfigListWidget.this.width, TweakConfigListWidget.this.itemHeight, Text.of(""), button ->  {
 				TweakEntry old = TweakConfigListWidget.this.getSelected();
 				TweakConfigListWidget.this.setSelected(TweakEntry.this);
 				TweakConfigListWidget.this.respond.onSelectionChange(old, this);
@@ -94,7 +98,7 @@ public class TweakConfigListWidget extends ElementListWidget<TweakConfigListWidg
 		}
 
 		@Override
-		public void render(int index, int y, int k, int l, int m, int mouseX, int mouseY, boolean mouseOver, float delta) {
+		public void render(MatrixStack matrices, int index, int y, int k, int l, int m, int mouseX, int mouseY, boolean mouseOver, float delta) {
 			int x = TweakConfigListWidget.this.left;
 			int width = TweakConfigListWidget.this.width;
 			int height = TweakConfigListWidget.this.itemHeight;
@@ -118,8 +122,8 @@ public class TweakConfigListWidget extends ElementListWidget<TweakConfigListWidg
 			this.mainButton.y = y;
 			this.toggleButton.x = x + width - this.toggleButton.getWidth() - 20;
 			this.toggleButton.y = y + height/2 - 8;
-			this.toggleButton.render(mouseX, mouseY, delta);
-			TweakConfigListWidget.this.drawString(this.font, this.tweak.getLocalizedName(), 10, y + height/2 - 4, color);
+			this.toggleButton.render(matrices, mouseX, mouseY, delta);
+			DrawableHelper.drawStringWithShadow(matrices, this.font, this.tweak.getLocalizedName(), 10, y + height/2 - 4, color);
 		}
 
 		@Override

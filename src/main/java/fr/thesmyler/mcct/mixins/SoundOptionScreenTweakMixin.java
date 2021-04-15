@@ -39,7 +39,7 @@ public abstract class SoundOptionScreenTweakMixin extends GameOptionsScreen {
 		if(!Tweaks.SOUND_DEVICE.isActivated()) return;
 		try {
 			
-			TweakedSoundSystem soundSystem = ((TweakedSoundManager)this.minecraft.getSoundManager()).getTweakedSoundSystem();
+			TweakedSoundSystem soundSystem = ((TweakedSoundManager)this.client.getSoundManager()).getTweakedSoundSystem();
 			TweakedSoundEngine soundEngine = soundSystem.getTweakedSoundEngine();
 			this.devices = soundEngine.getAllDevices();
 			if(devices.size() > 0) {
@@ -49,13 +49,13 @@ public abstract class SoundOptionScreenTweakMixin extends GameOptionsScreen {
 								(gameOptions, integer) -> {
 									deviceId = (deviceId + integer) % devices.size();
 								},
-								(gameOptions, cyclingOptions) -> devices.get(deviceId)
+								(gameOptions, cyclingOptions) -> Text.of(devices.get(deviceId))
 								);
 				this.addButton(deviceOption.createButton(gameOptions, this.width/2 + 5, this.height / 6 + 108, 150));
 				for(AbstractButtonWidget abstractButton: this.buttons) {
 					if(!(abstractButton instanceof ButtonWidget)) continue;
 					ButtonWidget button = (ButtonWidget)abstractButton;
-					if(button.getMessage().equals(I18n.translate("gui.done"))) {
+					if(button.getMessage().asString().equals(I18n.translate("gui.done"))) {
 						doneButton = button;
 						break;
 					}

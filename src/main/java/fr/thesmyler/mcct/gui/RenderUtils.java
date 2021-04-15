@@ -5,9 +5,10 @@ import java.util.List;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
+import net.minecraft.client.util.math.MatrixStack;
 public abstract class RenderUtils {
 	
-	public static void drawMultilineBoxedString(MinecraftClient minecraft, String text, int x, int y, int width, int color) {
+	public static void drawMultilineBoxedString(MinecraftClient minecraft, MatrixStack matrices, String text, int x, int y, int width, int color) {
 		TextRenderer textRenderer = minecraft.textRenderer;
 		int pos = y;
 		String[] splited = text.split(" "); //TODO smarter line warping, this won't work with some languages
@@ -20,7 +21,7 @@ public abstract class RenderUtils {
 				dispString += " " + segments.get(i);
 			}
 			for(int k=0; k<i; k++) segments.remove(0);
-			textRenderer.draw(dispString, x, pos, color);
+			textRenderer.draw(matrices, dispString, x, pos, color);
 			pos += textRenderer.fontHeight * 1.5;
 		}
 	}

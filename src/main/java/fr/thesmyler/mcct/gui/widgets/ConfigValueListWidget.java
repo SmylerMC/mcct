@@ -16,6 +16,7 @@ import fr.thesmyler.mcct.config.ConfigValue;
 import fr.thesmyler.mcct.config.InvalidConfigValue;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
+import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.gui.Element;
 import net.minecraft.client.gui.widget.ElementListWidget;
 import net.minecraft.client.gui.widget.TextFieldWidget;
@@ -24,6 +25,8 @@ import net.minecraft.client.render.BufferBuilder;
 import net.minecraft.client.render.Tessellator;
 import net.minecraft.client.render.VertexFormats;
 import net.minecraft.client.resource.language.I18n;
+import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
 public class ConfigValueListWidget extends ElementListWidget<ConfigValueListWidget.ValueEntry<?>> {
@@ -63,10 +66,11 @@ public class ConfigValueListWidget extends ElementListWidget<ConfigValueListWidg
 		return this.width;
 	}
 
-	@Override
-	protected int getScrollbarPosition() {
-		return this.left + this.width - 5;
-	}
+	//FIXME Find a replacement for that
+//	@Override
+//	protected int getScrollbarPosition() {
+//		return this.left + this.width - 5;
+//	}
 	
 	public void updateFromTweaks() {
 		for(Element element: this.children()) {
@@ -143,7 +147,7 @@ public class ConfigValueListWidget extends ElementListWidget<ConfigValueListWidg
 
 					
 			}
-			this.textField = new TextFieldWidget(font, 0, 0, 50, 20, "");
+			this.textField = new TextFieldWidget(font, 0, 0, 50, 20, Text.of(""));
 			this.textField.setChangedListener((text) -> {
 				try {
 					int val = Integer.parseInt(text);
@@ -160,18 +164,18 @@ public class ConfigValueListWidget extends ElementListWidget<ConfigValueListWidg
 
 
 		@Override
-		public void render(int index, int y, int x, int width, int height, int mouseX, int mouseY, boolean hovering, float delta) {
+		public void render(MatrixStack matrices, int index, int y, int x, int width, int height, int mouseX, int mouseY, boolean hovering, float delta) {
 			this.renderBackground(index, y, x, width, height, mouseX, mouseY, hovering, delta);
 			if(this.slider != null) {
 				this.slider.setWidth(Math.min(width - 20, 390));
 				this.slider.y = y + 26;
 				this.slider.x = x + (x - slider.getWidth())/2 - 12;
-				this.slider.render(mouseX, mouseY, delta);
+				this.slider.render(matrices, mouseX, mouseY, delta);
 			}
 			this.textField.x = x + width - this.textField.getWidth() - 16;
 			this.textField.y = y + 3;
-			this.textField.render(mouseX, mouseY, delta);
-			ConfigValueListWidget.this.drawString(this.font, this.getLocalizedKey(), x+5, y+9, 0xFFFFFF);
+			this.textField.render(matrices, mouseX, mouseY, delta);
+			DrawableHelper.drawStringWithShadow(matrices, this.font, this.getLocalizedKey(), x+5, y+9, 0xFFFFFF);
 		}
 
 
@@ -212,7 +216,7 @@ public class ConfigValueListWidget extends ElementListWidget<ConfigValueListWidg
 					
 				};
 			}
-			this.textField = new TextFieldWidget(font, 0, 0, 50, 20, "");
+			this.textField = new TextFieldWidget(font, 0, 0, 50, 20, Text.of(""));
 			this.textField.setChangedListener((text) -> {
 				try {
 					float val = Float.parseFloat(text);
@@ -229,18 +233,18 @@ public class ConfigValueListWidget extends ElementListWidget<ConfigValueListWidg
 
 
 		@Override
-		public void render(int index, int y, int x, int width, int height, int mouseX, int mouseY, boolean hovering, float delta) {
+		public void render(MatrixStack matrices, int index, int y, int x, int width, int height, int mouseX, int mouseY, boolean hovering, float delta) {
 			this.renderBackground(index, y, x, width, height, mouseX, mouseY, hovering, delta);
 			if(this.slider != null) {
 				this.slider.setWidth(Math.min(width - 20, 390));
 				this.slider.y = y + 26;
 				this.slider.x = x + (x - slider.getWidth())/2 - 12;
-				this.slider.render(mouseX, mouseY, delta);
+				this.slider.render(matrices, mouseX, mouseY, delta);
 			}
 			this.textField.x = x + width - this.textField.getWidth() - 16;
 			this.textField.y = y + 3;
-			this.textField.render(mouseX, mouseY, delta);
-			ConfigValueListWidget.this.drawString(this.font, this.getLocalizedKey(), x+5, y+9, 0xFFFFFF);
+			this.textField.render(matrices, mouseX, mouseY, delta);
+			DrawableHelper.drawStringWithShadow(matrices, this.font, this.getLocalizedKey(), x+5, y+9, 0xFFFFFF);
 		}
 
 		@Override
@@ -282,12 +286,12 @@ public class ConfigValueListWidget extends ElementListWidget<ConfigValueListWidg
 		}
 
 		@Override
-		public void render(int index, int y, int x, int width, int height, int mouseX, int mouseY, boolean hovering, float delta) {
+		public void render(MatrixStack matrices, int index, int y, int x, int width, int height, int mouseX, int mouseY, boolean hovering, float delta) {
 			this.renderBackground(index, y, x, width, height, mouseX, mouseY, hovering, delta);
 			this.toggleButton.x = ConfigValueListWidget.this.left + width - this.toggleButton.getWidth() - 15;
 			this.toggleButton.y = y + height / 2 - 7;
-			this.toggleButton.render(mouseX, mouseY, delta);
-			ConfigValueListWidget.this.drawString(this.font, this.getLocalizedKey(), x + 10, y + height / 2 - 2, 0xFFFFFF);
+			this.toggleButton.render(matrices, mouseX, mouseY, delta);
+			DrawableHelper.drawStringWithShadow(matrices, this.font, this.getLocalizedKey(), x+10, y + height/2 - 2, 0xFFFFFF);
 		}
 
 
@@ -311,7 +315,7 @@ public class ConfigValueListWidget extends ElementListWidget<ConfigValueListWidg
 
 		public StringValueEntry(String key, ConfigStringValue configValue) {
 			super(key, configValue);
-			this.textField = new TextFieldWidget(this.font, 0, 0, 0, 20, this.configValue.get());
+			this.textField = new TextFieldWidget(this.font, 0, 0, 0, 20, Text.of(this.configValue.get()));
 			this.textField.setText(this.configValue.get());
 			this.textField.setChangedListener((text) -> {
 				try {
@@ -326,13 +330,13 @@ public class ConfigValueListWidget extends ElementListWidget<ConfigValueListWidg
 
 
 		@Override
-		public void render(int index, int y, int x, int width, int height, int mouseX, int mouseY, boolean hovering, float delta) {
+		public void render(MatrixStack matrices, int index, int y, int x, int width, int height, int mouseX, int mouseY, boolean hovering, float delta) {
 			this.renderBackground(index, y, x, width, height, mouseX, mouseY, hovering, delta);
 			this.textField.x = x + 5;
 			this.textField.y = y + 25;
 			this.textField.setWidth(width - 20);
-			this.textField.render(mouseX, mouseY, delta);
-			ConfigValueListWidget.this.drawCenteredString(this.font, this.getLocalizedKey(), x + width/2 -5, y + 8, 0xFFFFFF);
+			this.textField.render(matrices, mouseX, mouseY, delta);
+			DrawableHelper.drawCenteredString(matrices, this.font, this.getLocalizedKey(), x + width/2 -5, y + 8, 0xFFFFFF);
 		}
 
 
@@ -360,9 +364,9 @@ public class ConfigValueListWidget extends ElementListWidget<ConfigValueListWidg
 
 
 		@Override
-		public void render(int index, int y, int x, int width, int height, int mouseX, int mouseY, boolean hovering, float delta) {
+		public void render(MatrixStack matrices, int index, int y, int x, int width, int height, int mouseX, int mouseY, boolean hovering, float delta) {
 			this.renderBackground(index, y, x, width, height, mouseX, mouseY, hovering, delta);
-			ConfigValueListWidget.this.drawString(this.font, this.getLocalizedKey(), x, y, 0xFFFFFF);
+			DrawableHelper.drawStringWithShadow(matrices, this.font, this.getLocalizedKey(), x, y, 0xFFFFFF);
 		}
 
 

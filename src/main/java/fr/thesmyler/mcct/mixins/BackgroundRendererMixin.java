@@ -31,7 +31,7 @@ public abstract class BackgroundRendererMixin {
 	 * @param thickFog
 	 * @param info
 	 */
-	@Inject(at=@At("TAIL"), method="applyFog(Lnet/minecraft/client/render/Camera;Lnet/minecraft/client/render/BackgroundRenderer/FogType;FZ)V")
+	@Inject(at=@At("TAIL"), method="applyFog(Lnet/minecraft/client/render/Camera;Lnet/minecraft/client/render/BackgroundRenderer$FogType;FZ)V")
 	private static void fogTweak(Camera camera, BackgroundRenderer.FogType fogType, float viewDistance, boolean thickFog, CallbackInfo info) {
 		mcctLavaFogTweak(camera, fogType, viewDistance, thickFog);
 	}

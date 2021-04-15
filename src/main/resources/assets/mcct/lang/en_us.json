@@ -20,10 +20,13 @@
     "mcct.configvalues.preferred_device": "Exact name of the audio device to use (blank for default)",
     "mcct.configvalues.fog_density": "Lava fog density",
     "mcct.configvalues.alert_on_full_inventory": "Alert me when my inventory is full",
+    "mcct.configvalues.alert_on_low_durability": "Alert me when my tool durability is low",
+    "mcct.configvalues.low_durability_threshold": "Low durability threshold",
     "mcct.configvalues.hide_all_toasts": "Hide ALL toasts",
     "mcct.configvalues.show_system_toasts": "Show system toasts",
     "mcct.configvalues.show_recipe_toasts": "Show recipe toasts",
     "mcct.configvalues.show_advancement_toasts": "Show advancement toasts",
     "mcct.configvalues.show_tutorial_toasts": "Show tutorial toasts",
-    "mcct.toast.invfull.name": "Your inventory is full!"
+    "mcct.toast.invfull.name": "Your inventory is full!",
+    "mcct.toast.tooldamage.name": "Low durability!"
 }

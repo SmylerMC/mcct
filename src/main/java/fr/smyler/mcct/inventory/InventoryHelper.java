@@ -13,7 +13,7 @@ public abstract class InventoryHelper {
 	 */
 	public static boolean isPlayerInventoryFull(PlayerEntity player) {
 		Inventory inventory = player.inventory;
-		for(int i=0;i<inventory.getInvSize() - 5; i++) { //We assumer the last five are armor and offhand
+		for(int i=0;i<inventory.getInvSize() - 5; i++) { // We assume the last five are armor and offhand
 			if(inventory.getInvStack(i).isEmpty()) return false;
 		}
 		return true;

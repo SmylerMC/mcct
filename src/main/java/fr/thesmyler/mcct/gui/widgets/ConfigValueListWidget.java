@@ -66,11 +66,10 @@ public class ConfigValueListWidget extends ElementListWidget<ConfigValueListWidg
 		return this.width;
 	}
 
-	//FIXME Find a replacement for that
-//	@Override
-//	protected int getScrollbarPosition() {
-//		return this.left + this.width - 5;
-//	}
+	@Override
+	protected int getScrollbarPositionX() {
+		return this.left + this.width - 5;
+	}
 	
 	public void updateFromTweaks() {
 		for(Element element: this.children()) {

@@ -19,7 +19,6 @@ import net.minecraft.client.resource.language.I18n;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.TranslatableText;
 
-//FIXME buttons not clicked
 public class MCCTConfigScreen extends Screen {
 
 	private Screen parentScreen;

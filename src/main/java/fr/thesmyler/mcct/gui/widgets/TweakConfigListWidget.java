@@ -52,11 +52,10 @@ public class TweakConfigListWidget extends ElementListWidget<TweakConfigListWidg
 		return this.width;
 	}
 
-	//FIXME
-//	@Override
-//	protected int getScrollbarPosition() {
-//		return this.left + this.width - 5;
-//	}
+	@Override
+	protected int getScrollbarPositionX() {
+		return this.left + this.width - 5;
+	}
 	
 
 	public void updateFromTweaks() {

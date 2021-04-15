@@ -69,7 +69,7 @@ public class MCCTConfigScreen extends Screen {
 
 	@Override
 	public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
-		this.renderBackground(matrices);
+		this.renderBackgroundTexture(0);
 		this.widgetTweakList.render(matrices, mouseX, mouseY, delta);
 		this.widgetValueList.render(matrices, mouseX, mouseY, delta);
 		DrawableHelper.drawCenteredString(matrices, this.textRenderer, I18n.translate(MCCT.MOD_ID + ".configscreen.title"), this.width/2, 20, 0xFFFFFF);

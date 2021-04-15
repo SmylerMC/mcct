@@ -42,8 +42,7 @@ public class GenericToast implements Toast {
 			client.textRenderer.draw(matrices, this.getLocalizedDescription(), xpos, 18, 0xFF2222);
 		}
 		
-		//FIXME method visibility changed
-		//if(this.icon != null) manager.getGame().getItemRenderer().innerRenderInGui((LivingEntity)null, this.icon, 8, 8);
+		if(this.icon != null) manager.getGame().getItemRenderer().renderGuiItemIcon(this.icon, 8, 8);
 		
 		return currentTime - this.startTime < 5000L ? Toast.Visibility.SHOW : Toast.Visibility.HIDE;
 	}

@@ -3,33 +3,22 @@ package fr.smyler.mcct;
 import org.lwjgl.glfw.GLFW;
 
 import fr.smyler.mcct.gui.screens.MCCTConfigScreen;
-import net.fabricmc.fabric.api.client.keybinding.FabricKeyBinding;
-import net.fabricmc.fabric.api.client.keybinding.KeyBindingRegistry;
+import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.options.KeyBinding;
 import net.minecraft.client.util.InputUtil;
-import net.minecraft.util.Identifier;
 
 public abstract class MCCTKeyBindings {
 	
-	private static String CATEGORY_NAME = MCCT.MOD_ID + ".bindings";
+	private final static String CATEGORY_NAME = MCCT.MOD_ID + ".bindings";
 
-	private static FabricKeyBinding openConfigBinding;
-	
-	public static void initBindings() {
-		KeyBindingRegistry.INSTANCE.addCategory(CATEGORY_NAME);
-		openConfigBinding = FabricKeyBinding.Builder.create(
-	            new Identifier(MCCT.MOD_ID, "openconfig"),
-	            InputUtil.Type.KEYSYM,
-	            GLFW.GLFW_KEY_J,
-	            MCCTKeyBindings.CATEGORY_NAME
-	        ).build();
-	}
+	private final static KeyBinding OPEN_CONFIG_BINDING = new KeyBinding("key.mcct.openconfig", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_J, CATEGORY_NAME);
 	
 	public static void registerBindings() {
-		KeyBindingRegistry.INSTANCE.register(openConfigBinding);
+		KeyBindingHelper.registerKeyBinding(OPEN_CONFIG_BINDING);
 	}
 	
 	public static void checkBindings(MinecraftClient client) {
-		if(openConfigBinding.isPressed()) MCCTConfigScreen.openNew();
+		if(OPEN_CONFIG_BINDING.isPressed()) MCCTConfigScreen.openNew();
 	}
 }

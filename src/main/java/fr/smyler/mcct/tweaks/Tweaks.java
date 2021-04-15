@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -66,8 +67,8 @@ public abstract class Tweaks {
 	}
 	
 	private static File getConfigFile() {
-		File directory = FabricLoader.getInstance().getConfigDirectory();
-		String path = directory.getAbsolutePath() + File.separatorChar + CONFIG_FILE_NAME;
+		Path directory = FabricLoader.getInstance().getConfigDir();
+		String path = directory.toString() + File.separatorChar + CONFIG_FILE_NAME;
 		return new File(path);
 	}
 	

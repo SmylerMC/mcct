@@ -33,7 +33,7 @@ public abstract class ContainerScreenMixin<T extends Container> extends Screen i
 	 * @param scanCode
 	 * @param info
 	 */
-	@Inject(at=@At("HEAD"), method="handleHotbarKeyPressed")
+	@Inject(at=@At("HEAD"), method="handleHotbarKeyPressed(II)Z")
 	private void handleHotbarKeyPressed(int keyCode, int scanCode, CallbackInfoReturnable<Boolean> info) {
 		if(!Tweaks.INVENTORY.isActivated() || !Tweaks.INVENTORY.SWAP_HAND_KEY_IN_INVENTORY.get()) return;
 		if (this.minecraft.player.inventory.getCursorStack().isEmpty() && this.focusedSlot != null && this.focusedSlot.id >= 9 && this.focusedSlot.id != 45) {

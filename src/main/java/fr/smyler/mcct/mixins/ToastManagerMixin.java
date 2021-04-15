@@ -18,7 +18,7 @@ import net.minecraft.client.toast.TutorialToast;
 @Mixin(value=ToastManager.class)
 public abstract class ToastManagerMixin extends DrawableHelper{
 
-	@Inject(at=@At("HEAD"), method="add()V", cancellable=true)
+	@Inject(at=@At("HEAD"), method="add(Lnet/minecraft/client/toast/Toast;)V", cancellable=true)
 	public void addToastTweak(Toast toast, CallbackInfo info) {
 		if(!Tweaks.TOASTS.isActivated()) return;
 		if(Tweaks.TOASTS.HIDE_ALL.get()) info.cancel();

@@ -34,7 +34,7 @@ public abstract class SoundOptionScreenTweakMixin extends GameOptionsScreen {
 		super(parent, gameOptions, title);
 	}
 
-	@Inject(at=@At("TAIL"), method="init")
+	@Inject(at=@At("TAIL"), method="init()V")
 	public void injectDeviceButton(CallbackInfo info) {
 		if(!Tweaks.SOUND_DEVICE.isActivated()) return;
 		try {

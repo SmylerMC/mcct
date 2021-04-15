@@ -36,8 +36,11 @@ public class ToastTweak extends AbstractTweak {
 
 	@Override
 	public void setFromConfiguration(Map<String, Object> configuration) throws InvalidConfigurationException {
-		// TODO Auto-generated method stub
-
+		this.HIDE_ALL.set((Boolean)configuration.getOrDefault("hide_all_toasts", this.HIDE_ALL.getDefault()));
+		this.SHOW_SYSTEM.set((Boolean)configuration.getOrDefault("show_system_toasts", this.SHOW_SYSTEM.getDefault()));
+		this.SHOW_RECIPE.set((Boolean)configuration.getOrDefault("show_recipe_toasts", this.SHOW_RECIPE.getDefault()));
+		this.SHOW_ADVANCEMENT.set((Boolean)configuration.getOrDefault("show_advancement_toasts", this.SHOW_ADVANCEMENT.getDefault()));
+		this.SHOW_TUTORIAL.set((Boolean)configuration.getOrDefault("show_tutorial_toasts", this.SHOW_TUTORIAL.getDefault()));
 	}
 
 }

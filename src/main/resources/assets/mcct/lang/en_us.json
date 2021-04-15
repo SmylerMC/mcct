@@ -28,5 +28,5 @@
     "mcct.configvalues.show_advancement_toasts": "Show advancement toasts",
     "mcct.configvalues.show_tutorial_toasts": "Show tutorial toasts",
     "mcct.toast.invfull.name": "Your inventory is full!",
-    "mcct.toast.tooldamage.name": "Low durability!"
+    "mcct.toast.tooldamage.name": "Low item durability!"
 }

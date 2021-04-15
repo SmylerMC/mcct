@@ -12,7 +12,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 
 
-//TODO lang files
 public abstract class InventoryEvents {
 	
 	private static boolean lastTickInventoyFull = false;

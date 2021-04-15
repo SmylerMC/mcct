@@ -76,8 +76,8 @@ public abstract class AbstractTweak {
 		try {
 			this.ACTIVATED.set(activated);
 		} catch (InvalidConfigValue e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			MCCT.LOGGER.error("Failed to activate a tweak!");
+			MCCT.LOGGER.catching(e);
 		}
 	}
 	

@@ -10,6 +10,12 @@ archivesBaseName = project.archives_base_name
 version = project.mod_version
 group = project.maven_group
 
+repositories {
+    maven {
+        url 'https://maven.terraformersmc.com'
+    }
+}
+
 dependencies {
 	//to change the versions see the gradle.properties file
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
@@ -23,7 +29,7 @@ dependencies {
 	// You may need to force-disable transitiveness on them.
 	
 	//Mod menu
-	modCompile 'io.github.prospector:modmenu:1.10.2+build.32'
+    modCompile "com.terraformersmc:modmenu:${project.modmenu_version}"
 }
 
 processResources {
@@ -77,9 +83,5 @@ publishing {
 		// uncomment to publish to the local maven
 		// mavenLocal()
 	}
-}
-
-repositories {
-    maven { url 'https://maven.fabricmc.net/io/github/prospector/modmenu/' }
 }
 

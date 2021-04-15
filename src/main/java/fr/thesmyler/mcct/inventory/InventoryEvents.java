@@ -30,15 +30,15 @@ public abstract class InventoryEvents {
 		
 		Inventory inventory = client.player.inventory;
 		for(int slot: trackedDamagableStacks.keySet()) {
-			ItemStack newStack = inventory.getInvStack(slot);
+			ItemStack newStack = inventory.getStack(slot);
 			ItemStack oldStack = trackedDamagableStacks.get(slot);
 			if(newStack.isItemEqualIgnoreDamage(oldStack) && newStack.getDamage() != oldStack.getDamage()) {
 				onItemDamageChanged(newStack, oldStack.getDamage());
 			}
 		}
 		trackedDamagableStacks.clear();
-		for(int slot = 0; slot < inventory.getInvSize(); slot++) {
-			ItemStack stack = inventory.getInvStack(slot);
+		for(int slot = 0; slot < inventory.size(); slot++) {
+			ItemStack stack = inventory.getStack(slot);
 			if(stack.isDamageable()) trackedDamagableStacks.put(slot, stack);
 		}
 	}

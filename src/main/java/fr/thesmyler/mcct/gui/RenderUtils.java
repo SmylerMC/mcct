@@ -16,7 +16,7 @@ public abstract class RenderUtils {
 		while(segments.size() > 0) {
 			String dispString = segments.get(0);
 			int i=1;
-			for(; i < segments.size() && textRenderer.getStringWidth(dispString + segments.get(i)) < width; i++) {
+			for(; i < segments.size() && textRenderer.getWidth(dispString + segments.get(i)) < width; i++) {
 				dispString += " " + segments.get(i);
 			}
 			for(int k=0; k<i; k++) segments.remove(0);

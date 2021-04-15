@@ -8,17 +8,17 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import fr.thesmyler.mcct.tweaks.Tweaks;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.screen.ingame.ContainerProvider;
-import net.minecraft.client.gui.screen.ingame.ContainerScreen;
+import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.gui.screen.ingame.InventoryScreen;
-import net.minecraft.container.Container;
-import net.minecraft.container.Slot;
-import net.minecraft.container.SlotActionType;
+import net.minecraft.client.gui.screen.ingame.ScreenHandlerProvider;
+import net.minecraft.screen.ScreenHandler;
+import net.minecraft.screen.slot.Slot;
+import net.minecraft.screen.slot.SlotActionType;
 import net.minecraft.text.Text;
 
 //TODO Only works with the survival inventory, implement it for creative
-@Mixin(ContainerScreen.class)
-public abstract class ContainerScreenMixin<T extends Container> extends Screen implements ContainerProvider<T> {
+@Mixin(HandledScreen.class)
+public abstract class ContainerScreenMixin<T extends ScreenHandler> extends Screen implements ScreenHandlerProvider<T> {
 
 	protected ContainerScreenMixin(Text title) {
 		super(title);
@@ -38,8 +38,8 @@ public abstract class ContainerScreenMixin<T extends Container> extends Screen i
 		if(!Tweaks.INVENTORY.isActivated() || !Tweaks.INVENTORY.SWAP_HAND_KEY_IN_INVENTORY.get()) return;
 		if (this.minecraft.player.inventory.getCursorStack().isEmpty() && this.focusedSlot != null && this.focusedSlot.id >= 9 && this.focusedSlot.id != 45) {
 			if (minecraft.options.keySwapHands.matchesKey(keyCode, scanCode) && this.minecraft.currentScreen instanceof InventoryScreen) {
-				Slot offHandSlot = this.getContainer().getSlot(45);
-				int syncId = this.getContainer().syncId;
+				Slot offHandSlot = this.getScreenHandler().getSlot(45);
+				int syncId = this.getScreenHandler().syncId;
 				if(offHandSlot.getStack().isItemEqualIgnoreDamage(this.focusedSlot.getStack())) {
 					Slot startSlot;
 					Slot destSlot;

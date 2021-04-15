@@ -55,7 +55,7 @@ public abstract class BackgroundRendererMixin {
 	
 	private static void mcctLavaFogTweak(Camera camera, BackgroundRenderer.FogType fogType, float viewDistance, boolean thickFog) {
 		if(!Tweaks.LAVA.isActivated()) return;
-		if (camera.getSubmergedFluidState().matches(FluidTags.LAVA)) RenderSystem.fogDensity(Tweaks.LAVA.FOG_DENSITY.get());
+		if (camera.getSubmergedFluidState().isIn(FluidTags.LAVA)) RenderSystem.fogDensity(Tweaks.LAVA.FOG_DENSITY.get());
 	}
 
 	

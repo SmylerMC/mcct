@@ -7,15 +7,15 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import net.minecraft.client.gui.screen.ingame.AbstractFurnaceScreen;
-import net.minecraft.client.gui.screen.ingame.ContainerScreen;
+import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.gui.screen.recipebook.AbstractFurnaceRecipeBookScreen;
 import net.minecraft.client.gui.screen.recipebook.RecipeBookProvider;
-import net.minecraft.container.AbstractFurnaceContainer;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.screen.AbstractFurnaceScreenHandler;
 import net.minecraft.text.Text;
 
 @Mixin(value=AbstractFurnaceScreen.class)
-public abstract class AbstractFurnaceScreenMixin<T extends AbstractFurnaceContainer> extends ContainerScreen<T> implements RecipeBookProvider{
+public abstract class AbstractFurnaceScreenMixin<T extends AbstractFurnaceScreenHandler> extends HandledScreen<T> implements RecipeBookProvider{
 
 	@Shadow public AbstractFurnaceRecipeBookScreen recipeBook;
 	

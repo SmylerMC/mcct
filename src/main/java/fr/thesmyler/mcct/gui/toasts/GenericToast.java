@@ -31,7 +31,7 @@ public class GenericToast implements Toast {
 			this.justUpdated = false;
 		}
 
-		manager.getGame().getTextureManager().bindTexture(TOASTS_TEX);
+		manager.getGame().getTextureManager().bindTexture(TEXTURE);
 		RenderSystem.color3f(1.0F, 1.0F, 1.0F);
 		manager.blit(0, 0, 0, 32, 160, 32);
 		float xpos = this.icon != null ? 30: 10;
@@ -41,7 +41,7 @@ public class GenericToast implements Toast {
 			manager.getGame().textRenderer.draw(this.getLocalizedTitle(), xpos, 7, 0x000000);
 			manager.getGame().textRenderer.draw(this.getLocalizedDescription(), xpos, 18, 0xFF2222);
 		}
-		if(this.icon != null) manager.getGame().getItemRenderer().renderGuiItem((LivingEntity)null, this.icon, 8, 8);
+		if(this.icon != null) manager.getGame().getItemRenderer().innerRenderInGui((LivingEntity)null, this.icon, 8, 8);
 		return currentTime - this.startTime < 5000L ? Toast.Visibility.SHOW : Toast.Visibility.HIDE;
 	}
 	

@@ -14,13 +14,13 @@ import fr.thesmyler.mcct.audio.TweakedSoundSystem;
 import fr.thesmyler.mcct.audio.exceptions.ExtensionNotSupportedException;
 import fr.thesmyler.mcct.tweaks.Tweaks;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.screen.ScreenTexts;
 import net.minecraft.client.gui.screen.options.GameOptionsScreen;
 import net.minecraft.client.gui.screen.options.SoundOptionsScreen;
 import net.minecraft.client.gui.widget.AbstractButtonWidget;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.options.CyclingOption;
 import net.minecraft.client.options.GameOptions;
-import net.minecraft.client.resource.language.I18n;
 import net.minecraft.text.Text;
 
 @Mixin(SoundOptionsScreen.class)
@@ -55,7 +55,7 @@ public abstract class SoundOptionScreenTweakMixin extends GameOptionsScreen {
 				for(AbstractButtonWidget abstractButton: this.buttons) {
 					if(!(abstractButton instanceof ButtonWidget)) continue;
 					ButtonWidget button = (ButtonWidget)abstractButton;
-					if(button.getMessage().asString().equals(I18n.translate("gui.done"))) {
+					if(button.getMessage().equals(ScreenTexts.DONE)) {
 						doneButton = button;
 						break;
 					}

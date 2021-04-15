@@ -14,7 +14,8 @@
     "BackgroundRendererMixin",
     "RecipeBookWidgetMixin",
     "RecipeBookResultsMixin",
-    "AbstractFurnaceScreenMixin"
+    "AbstractFurnaceScreenMixin",
+    "ToastManagerMixin"
 ],
   "injectors": {
     "defaultRequire": 1

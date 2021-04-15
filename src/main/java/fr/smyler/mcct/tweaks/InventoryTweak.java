@@ -3,6 +3,7 @@ package fr.smyler.mcct.tweaks;
 import java.util.Map;
 
 import fr.smyler.mcct.config.ConfigBooleanValue;
+import fr.smyler.mcct.config.ConfigFloatValue;
 import fr.smyler.mcct.config.ConfigValue;
 import fr.smyler.mcct.config.InvalidConfigurationException;
 
@@ -11,12 +12,18 @@ public class InventoryTweak extends AbstractTweak {
 	public final ConfigBooleanValue SWAP_HAND_KEY_IN_INVENTORY;
 	public final ConfigBooleanValue MOUSE_WHEEL_IN_RECIPE_BOOK;
 	public final ConfigBooleanValue INVERTED_MOUSE_WHEEL;
+	public final ConfigBooleanValue ALERT_ON_FULL_INVENTORY;
+	public final ConfigBooleanValue ALERT_ON_LOW_DURABILITY;
+	public final ConfigFloatValue LOW_DURABILITY_THRESHOLD;
 
 	public InventoryTweak(String id) {
 		super(id, "inventory_tweak.name", "inventory_tweak.desc");
 		this.SWAP_HAND_KEY_IN_INVENTORY = new ConfigBooleanValue(true, "swap_hand_key");
 		this.MOUSE_WHEEL_IN_RECIPE_BOOK = new ConfigBooleanValue(true, "wheel_in_recipe_book");
 		this.INVERTED_MOUSE_WHEEL = new ConfigBooleanValue(false, "inverted_mouse_wheel");
+		this.ALERT_ON_FULL_INVENTORY = new ConfigBooleanValue(false, "alert_on_full_inventory");
+		this.ALERT_ON_LOW_DURABILITY = new ConfigBooleanValue(false, "alert_on_low_durability");
+		this.LOW_DURABILITY_THRESHOLD = new ConfigFloatValue(5f, 0f, 100f, "low_durability_threshold");
 	}
 
 	@Override
@@ -25,6 +32,9 @@ public class InventoryTweak extends AbstractTweak {
 		config.put("activate_swap_hand_key", this.SWAP_HAND_KEY_IN_INVENTORY);
 		config.put("activate_wheel_in_recipe_book", this.MOUSE_WHEEL_IN_RECIPE_BOOK);
 		config.put("inverted_mouse_wheel", this.INVERTED_MOUSE_WHEEL);
+		config.put("alert_on_full_inventory", this.ALERT_ON_FULL_INVENTORY);
+		config.put("alert_on_low_durability", this.ALERT_ON_LOW_DURABILITY);
+		config.put("low_durability_threshold", this.LOW_DURABILITY_THRESHOLD);
 		return config;
 	}
 
@@ -33,6 +43,9 @@ public class InventoryTweak extends AbstractTweak {
 		this.SWAP_HAND_KEY_IN_INVENTORY.set((Boolean)configuration.getOrDefault("swap_hand_key", this.SWAP_HAND_KEY_IN_INVENTORY.getDefault()));
 		this.MOUSE_WHEEL_IN_RECIPE_BOOK.set((Boolean)configuration.getOrDefault("activate_wheel_in_recipe_book", this.MOUSE_WHEEL_IN_RECIPE_BOOK.getDefault()));
 		this.INVERTED_MOUSE_WHEEL.set((Boolean)configuration.getOrDefault("inverted_mouse_wheel", this.INVERTED_MOUSE_WHEEL.getDefault()));
+		this.ALERT_ON_FULL_INVENTORY.set((Boolean)configuration.getOrDefault("alert_on_full_inventory", this.ALERT_ON_FULL_INVENTORY.getDefault()));
+		this.ALERT_ON_LOW_DURABILITY.set((Boolean)configuration.getOrDefault("alert_on_low_durability", this.ALERT_ON_LOW_DURABILITY.getDefault()));
+		this.LOW_DURABILITY_THRESHOLD.set(((Double)configuration.getOrDefault("low_durability_threshold", this.LOW_DURABILITY_THRESHOLD.getDefault())).floatValue());
 	}
 
 }

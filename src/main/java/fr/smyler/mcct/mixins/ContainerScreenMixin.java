@@ -26,6 +26,13 @@ public abstract class ContainerScreenMixin<T extends Container> extends Screen i
 
 	@Shadow protected Slot focusedSlot;
 
+	/**
+	 * Let users press F to swap items with their off-hand slot
+	 * 
+	 * @param keyCode
+	 * @param scanCode
+	 * @param info
+	 */
 	@Inject(at=@At("HEAD"), method="handleHotbarKeyPressed")
 	private void handleHotbarKeyPressed(int keyCode, int scanCode, CallbackInfoReturnable<Boolean> info) {
 		if(!Tweaks.INVENTORY.isActivated() || !Tweaks.INVENTORY.SWAP_HAND_KEY_IN_INVENTORY.get()) return;
@@ -44,13 +51,13 @@ public abstract class ContainerScreenMixin<T extends Container> extends Screen i
 						destSlot = offHandSlot;
 					}
 					int diff = startSlot.getStack().getCount() - destSlot.getStack().getCount();
-					minecraft.interactionManager.clickSlot(syncId, startSlot.id, 0, SlotActionType.PICKUP, this.minecraft.player);
+					this.minecraft.interactionManager.clickSlot(syncId, startSlot.id, 0, SlotActionType.PICKUP, this.minecraft.player);
 					while(diff-- > 0) minecraft.interactionManager.clickSlot(syncId, destSlot.id, 1, SlotActionType.PICKUP, this.minecraft.player);
-					minecraft.interactionManager.clickSlot(syncId, startSlot.id, 0, SlotActionType.PICKUP, this.minecraft.player);
+					this.minecraft.interactionManager.clickSlot(syncId, startSlot.id, 0, SlotActionType.PICKUP, this.minecraft.player);
 				} else {
-					minecraft.interactionManager.clickSlot(syncId, 45, 0, SlotActionType.PICKUP, this.minecraft.player);
-					minecraft.interactionManager.clickSlot(syncId, this.focusedSlot.id, 0, SlotActionType.PICKUP, this.minecraft.player);
-					minecraft.interactionManager.clickSlot(syncId, 45, 0, SlotActionType.PICKUP, this.minecraft.player);
+					this.minecraft.interactionManager.clickSlot(syncId, 45, 0, SlotActionType.PICKUP, this.minecraft.player);
+					this.minecraft.interactionManager.clickSlot(syncId, this.focusedSlot.id, 0, SlotActionType.PICKUP, this.minecraft.player);
+					this.minecraft.interactionManager.clickSlot(syncId, 45, 0, SlotActionType.PICKUP, this.minecraft.player);
 				}
 			}
 		}

@@ -10,7 +10,6 @@
     "SoundSystemMixin",
     "SoundEngineMixin",
     "SoundOptionScreenTweakMixin",
-    "BackgroundRendererMixin",
     "RecipeBookWidgetMixin",
     "RecipeBookResultsMixin",
     "AbstractFurnaceScreenMixin",

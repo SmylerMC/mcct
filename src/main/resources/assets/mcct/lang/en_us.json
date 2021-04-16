@@ -10,10 +10,12 @@
     "mcct.sounddevice_tweak.name": "Sound output device",
     "mcct.lava_tweak.name": "Lava fog",
     "mcct.toast_tweak.name": "Toasts",
+    "mcct.bugfixes_tweak.name": "Bugfixes",
     "mcct.lava_tweak.desc": "The vanilla lava fog is so dense you can't see anything. The vanilla density value is 2.0, and a value of 0 means no fog at all.",
     "mcct.sounddevice_tweak.desc": "Lets you change the audio device in the Music & Sound menu. You should use the Music & Sound menu to easily set the device's name.",
     "mcct.inventory_tweak.desc": "Use the swap hand key in the survival inventory just like the hotbar keys, and use the mouse wheel to turn pages in the recipe book",
     "mcct.toast_tweak.desc": "Toasts are shown in the upper right corner of the game when specific events occur (eg. When you unlocked a new recipe). You may not want some of them, and can disable them here.",
+    "mcct.bugfixes_tweak.desc": "Applies bugfixes to the vanilla client",
     "mcct.configvalues.activate_swap_hand_key": "Swap hand key",
     "mcct.configvalues.activate_wheel_in_recipe_book": "Mouse wheel in recipe book",
     "mcct.configvalues.inverted_mouse_wheel": "Inverted mouse wheel",
@@ -27,6 +29,7 @@
     "mcct.configvalues.show_recipe_toasts": "Show recipe toasts",
     "mcct.configvalues.show_advancement_toasts": "Show advancement toasts",
     "mcct.configvalues.show_tutorial_toasts": "Show tutorial toasts",
+    "mcct.configvalues.openfile_linux_bugfix": "Fixes opening screenshots or other files hanging the game",
     "mcct.toast.invfull.name": "Your inventory is full!",
     "mcct.toast.tooldamage.name": "Low item durability!"
 }

@@ -13,7 +13,8 @@
     "RecipeBookWidgetMixin",
     "RecipeBookResultsMixin",
     "AbstractFurnaceScreenMixin",
-    "ToastManagerMixin"
+    "ToastManagerMixin",
+    "OperatingSystemUtilMixin"
 ],
   "injectors": {
     "defaultRequire": 1

@@ -37,7 +37,7 @@ public class MCCTConfigScreen extends Screen {
 			this.widgetTweakList.updateFromTweaks();
 			this.widgetValueList.updateFromTweaks();
 		});
-		this.widgetTweakList = new TweakConfigListWidget(minecraft, this.width / 2 - 10, this.height - 30, 50, this.height - 50, 30, (oldEntry, newEntry) -> {
+		this.widgetTweakList = new TweakConfigListWidget(this.minecraft, this.width / 2 - 10, this.height - 30, 50, this.height - 50, 30, (oldEntry, newEntry) -> {
 			MCCTConfigScreen.this.widgetValueList.clear();
 			Map<String, ConfigValue<?>> config = newEntry.getTweak().getConfiguration();
 			config.remove("activated");
@@ -46,7 +46,7 @@ public class MCCTConfigScreen extends Screen {
 			MCCTConfigScreen.this.widgetValueList.setScrollAmount(0);
 		});
 		this.widgetTweakList.setLeftPos(5);
-		this.widgetValueList = new ConfigValueListWidget(minecraft, this.width / 2 - 10, this.height, this.height / 2, this.height - 50, 55);
+		this.widgetValueList = new ConfigValueListWidget(this.minecraft, this.width / 2 - 10, this.height, this.height / 2, this.height - 50, 55);
 		this.widgetValueList.setLeftPos(this.width/2 + 5);
 		this.addButton(resetButton);
 		this.addButton(new ButtonWidget(this.width / 2 + 4, this.height - 28, 150, 20, I18n.translate("gui.done"), button ->  {

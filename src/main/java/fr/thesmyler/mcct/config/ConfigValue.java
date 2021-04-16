@@ -9,7 +9,7 @@ public abstract class ConfigValue<T> {
 
 	private T value;
 	private final T defaultValue;
-	private final String commentKey;
+	private final String name;
 	private static final Gson GSON = new GsonBuilder()
 			.registerTypeAdapter(ConfigBooleanValue.class, new ConfigBooleanValueSerializer())
 			.registerTypeAdapter(ConfigIntValue.class, new ConfigIntValueSerializer())
@@ -21,7 +21,7 @@ public abstract class ConfigValue<T> {
 		this.checkValue(defaultValue);
 		this.value = defaultValue;
 		this.defaultValue = defaultValue;
-		this.commentKey = commentKey;
+		this.name = commentKey;
 	}
 
 	/**
@@ -51,7 +51,11 @@ public abstract class ConfigValue<T> {
 	}
 
 	public String getLocalizedComment() {
-		return I18n.translate(this.commentKey);
+		return I18n.translate(this.name);
+	}
+	
+	public String name() {
+		return this.name;
 	}
 	
 	public static Gson getSerializerGson() {

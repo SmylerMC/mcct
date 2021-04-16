@@ -28,6 +28,7 @@ public abstract class Tweaks {
 	public static final AudioDeviceTweak SOUND_DEVICE = new AudioDeviceTweak("sound_output_device");
 	public static final LavaTweak LAVA = new LavaTweak("lava");
 	public static final ToastTweak TOASTS = new ToastTweak("toasts");
+	public static final BugfixesTweak BUGFIXES = new BugfixesTweak("bugfixes");
 	//public static final TestTweak TEST_TWEAK = new TestTweak("test");
 
 	public static void registerTweak(AbstractTweak tweak) {

@@ -11,9 +11,9 @@ version = project.mod_version
 group = project.maven_group
 
 repositories {
-    //maven {
-    //    url 'https://maven.terraformersmc.com'
-    //}
+    maven {
+        url 'https://maven.terraformersmc.com'
+    }
 }
 
 dependencies {
@@ -29,20 +29,15 @@ dependencies {
 	// You may need to force-disable transitiveness on them.
 	
 	//Mod menu
-	//modCompile "com.terraformersmc:modmenu:${project.modmenu_version}"
+	modCompileOnly "com.terraformersmc:modmenu:${project.modmenu_version}"
 }
 
 processResources {
-	inputs.property "version", project.version
+    inputs.property "version", project.version
 
-	from(sourceSets.main.resources.srcDirs) {
-		include "fabric.mod.json"
-		expand "version": project.version
-	}
-
-	from(sourceSets.main.resources.srcDirs) {
-		exclude "fabric.mod.json"
-	}
+    filesMatching("fabric.mod.json") {
+        expand "version": project.version
+    }
 }
 
 // ensure that the encoding is set to UTF-8, no matter what the system default is

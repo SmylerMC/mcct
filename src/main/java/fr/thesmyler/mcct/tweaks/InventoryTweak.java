@@ -37,11 +37,11 @@ public class InventoryTweak extends AbstractTweak {
 
 	@Override
 	public void setFromConfiguration(Map<String, Object> configuration) throws InvalidConfigurationException {
-		this.MOUSE_WHEEL_IN_RECIPE_BOOK.set((Boolean)configuration.getOrDefault("activate_wheel_in_recipe_book", this.MOUSE_WHEEL_IN_RECIPE_BOOK.getDefault()));
-		this.INVERTED_MOUSE_WHEEL.set((Boolean)configuration.getOrDefault("inverted_mouse_wheel", this.INVERTED_MOUSE_WHEEL.getDefault()));
-		this.ALERT_ON_FULL_INVENTORY.set((Boolean)configuration.getOrDefault("alert_on_full_inventory", this.ALERT_ON_FULL_INVENTORY.getDefault()));
-		this.ALERT_ON_LOW_DURABILITY.set((Boolean)configuration.getOrDefault("alert_on_low_durability", this.ALERT_ON_LOW_DURABILITY.getDefault()));
-		this.LOW_DURABILITY_THRESHOLD.set((float) configuration.getOrDefault("low_durability_threshold", this.LOW_DURABILITY_THRESHOLD.getDefault()));
+		this.MOUSE_WHEEL_IN_RECIPE_BOOK.set((Boolean) configuration.getOrDefault("activate_wheel_in_recipe_book", this.MOUSE_WHEEL_IN_RECIPE_BOOK.getDefault()));
+		this.INVERTED_MOUSE_WHEEL.set((Boolean) configuration.getOrDefault("inverted_mouse_wheel", this.INVERTED_MOUSE_WHEEL.getDefault()));
+		this.ALERT_ON_FULL_INVENTORY.set((Boolean) configuration.getOrDefault("alert_on_full_inventory", this.ALERT_ON_FULL_INVENTORY.getDefault()));
+		this.ALERT_ON_LOW_DURABILITY.set((Boolean) configuration.getOrDefault("alert_on_low_durability", this.ALERT_ON_LOW_DURABILITY.getDefault()));
+		this.LOW_DURABILITY_THRESHOLD.set(((Double) configuration.getOrDefault("low_durability_threshold", this.LOW_DURABILITY_THRESHOLD.getDefault())).floatValue());
 	}
 
 }

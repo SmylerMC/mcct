@@ -31,5 +31,6 @@
     "mcct.configvalues.show_tutorial_toasts": "Show tutorial toasts",
     "mcct.configvalues.openfile_linux_bugfix": "Fixes opening screenshots or other files hanging the game",
     "mcct.toast.invfull.name": "Your inventory is full!",
-    "mcct.toast.tooldamage.name": "Low item durability!"
+    "mcct.toast.tooldamage.name": "Low item durability!",
+    "mcct.audiosettings.audio_device": "Device"
 }

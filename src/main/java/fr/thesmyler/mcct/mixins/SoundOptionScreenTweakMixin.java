@@ -36,7 +36,7 @@ public abstract class SoundOptionScreenTweakMixin extends GameOptionsScreen {
         super(parent, gameOptions, title);
     }
 
-    @Inject(at=@At("TAIL"), method="init()V") //FIXME
+    @Inject(at=@At("TAIL"), method="init()V")
     public void injectDeviceButton(CallbackInfo info) {
         if(!Tweaks.SOUND_DEVICE.isActivated()) return;
         try {
@@ -47,12 +47,12 @@ public abstract class SoundOptionScreenTweakMixin extends GameOptionsScreen {
             this.devices = soundEngine.getAllDevices();
             if(this.devices.size() > 0) {
                 CyclingOption<String> deviceOption = CyclingOption.create(
-                        MCCT.MOD_ID + ".audio_device",
+                        MCCT.MOD_ID + ".audiosettings.audio_device",
                         this.devices,
                         device -> Text.of(device),
                         gameOptions -> currentDevice,
                         (gameOptions, option, device) -> this.device = device
-                        );
+                );
                 this.addDrawableChild(deviceOption.createButton(this.gameOptions, this.width/2 + 5, this.height / 6 + 108, 150));
                 for(Element child: this.children()) {
                     if(!(child instanceof ButtonWidget)) continue;
@@ -65,6 +65,7 @@ public abstract class SoundOptionScreenTweakMixin extends GameOptionsScreen {
                 if(this.doneButton == null) {
                     MCCT.LOGGER.error("Could not find done button in sound option screen");
                 } else {
+                    TweakedButtonWidget tweakedButton = (TweakedButtonWidget) this.doneButton;
                     PressAction newOnPress = buttonWidget -> {
                         try {
                             if(!soundEngine.getCurrentDevice().equals(this.device)) {
@@ -74,14 +75,9 @@ public abstract class SoundOptionScreenTweakMixin extends GameOptionsScreen {
                         } catch (ExtensionNotSupportedException e) {
                             MCCT.LOGGER.error("Failed to set new audio device because the enumerate all extension is not available, but the extension should have been checked ??");
                         }
-                        this.doneButton.onPress();
+                        tweakedButton.getOnPressAction().onPress(this.doneButton);
                     };
-                    ButtonWidget newButton = new ButtonWidget(
-                            this.doneButton.x, this.doneButton.y,
-                            this.doneButton.getWidth(), this.doneButton.getHeight(),
-                            this.doneButton.getMessage(),
-                            newOnPress,
-                            ((TweakedButtonWidget)this.doneButton).getTooltipSupplier());
+                    ButtonWidget newButton = tweakedButton.withAction(newOnPress);
                     this.remove(this.doneButton);
                     this.addDrawableChild(newButton);
                 }

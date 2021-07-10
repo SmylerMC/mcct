@@ -23,6 +23,7 @@ import net.minecraft.client.gui.widget.ElementListWidget;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.client.gui.widget.ToggleButtonWidget;
 import net.minecraft.client.render.BufferBuilder;
+import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.render.Tessellator;
 import net.minecraft.client.render.VertexFormat;
 import net.minecraft.client.render.VertexFormats;
@@ -100,8 +101,8 @@ public class ConfigValueListWidget extends ElementListWidget<ConfigValueListWidg
 			Tessellator tessellator = Tessellator.getInstance();
 			BufferBuilder bufferBuilder = tessellator.getBuffer();
 			RenderSystem.enableBlend();
-//			RenderSystem.shadeModel(7425); //FIXME
 			RenderSystem.disableTexture();
+	        RenderSystem.setShader(GameRenderer::getPositionColorShader);
 			bufferBuilder.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_COLOR);
 			int c = index % 2 + 1;
 			int cb = hovering ? 220 : 255;

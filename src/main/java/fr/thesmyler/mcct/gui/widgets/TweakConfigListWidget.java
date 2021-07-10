@@ -17,6 +17,7 @@ import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.ElementListWidget;
 import net.minecraft.client.gui.widget.ToggleButtonWidget;
 import net.minecraft.client.render.BufferBuilder;
+import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.render.Tessellator;
 import net.minecraft.client.render.VertexFormat;
 import net.minecraft.client.render.VertexFormats;
@@ -108,8 +109,8 @@ public class TweakConfigListWidget extends ElementListWidget<TweakConfigListWidg
 				Tessellator tessellator = Tessellator.getInstance();
 				BufferBuilder bufferBuilder = tessellator.getBuffer();
 				RenderSystem.enableBlend();
-//				RenderSystem.shadeModel(7425); //FIXME
 				RenderSystem.disableTexture();
+	            RenderSystem.setShader(GameRenderer::getPositionColorShader);
 				bufferBuilder.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_COLOR);
 				bufferBuilder.vertex(x, y + height, 0.0D).color(255, 255, 255, 75).next();
 				bufferBuilder.vertex(x + width, y + height, 0.0D).color(0, 0, 0, 0).next();

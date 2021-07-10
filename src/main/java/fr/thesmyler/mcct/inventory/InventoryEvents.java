@@ -28,7 +28,7 @@ public abstract class InventoryEvents {
 			lastTickInventoyFull = true;
 		} else lastTickInventoyFull = false;
 		
-		Inventory inventory = client.player.inventory;
+		Inventory inventory = client.player.getInventory();
 		for(int slot: trackedDamagableStacks.keySet()) {
 			ItemStack newStack = inventory.getStack(slot);
 			ItemStack oldStack = trackedDamagableStacks.get(slot);

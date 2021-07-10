@@ -1,15 +1,15 @@
 package fr.thesmyler.mcct;
 
-import com.terraformersmc.modmenu.api.ConfigScreenFactory;
-import com.terraformersmc.modmenu.api.ModMenuApi;
+//import com.terraformersmc.modmenu.api.ConfigScreenFactory;
+//import com.terraformersmc.modmenu.api.ModMenuApi;
 
-import fr.thesmyler.mcct.gui.screens.MCCTConfigScreen;
-
-public class MCCTModMenuAPI implements ModMenuApi {
+//FIXME Implement modmenu
+//public class MCCTModMenuAPI implements ModMenuApi {
+public class MCCTModMenuAPI {
 	
-	@Override
-	public ConfigScreenFactory<?> getModConfigScreenFactory() {
-		return screen -> new MCCTConfigScreen(screen);
-	}
+//	@Override
+//	public ConfigScreenFactory<?> getModConfigScreenFactory() {
+//		return screen -> new MCCTConfigScreen(screen);
+//	}
 
 }

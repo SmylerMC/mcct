@@ -18,11 +18,13 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.gui.Element;
+import net.minecraft.client.gui.Selectable;
 import net.minecraft.client.gui.widget.ElementListWidget;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.client.gui.widget.ToggleButtonWidget;
 import net.minecraft.client.render.BufferBuilder;
 import net.minecraft.client.render.Tessellator;
+import net.minecraft.client.render.VertexFormat;
 import net.minecraft.client.render.VertexFormats;
 import net.minecraft.client.resource.language.I18n;
 import net.minecraft.client.util.math.MatrixStack;
@@ -86,6 +88,8 @@ public class ConfigValueListWidget extends ElementListWidget<ConfigValueListWidg
 		protected String key;
 		protected final T configValue;
 		protected final TextRenderer font = MinecraftClient.getInstance().textRenderer;
+		private final List<Element> children = new ArrayList<>();
+		private final List<Selectable> selectableChildren = new ArrayList<>();
 
 		public ValueEntry(String key, T configValue) {
 			this.key = key;
@@ -96,16 +100,16 @@ public class ConfigValueListWidget extends ElementListWidget<ConfigValueListWidg
 			Tessellator tessellator = Tessellator.getInstance();
 			BufferBuilder bufferBuilder = tessellator.getBuffer();
 			RenderSystem.enableBlend();
-			RenderSystem.shadeModel(7425);
+//			RenderSystem.shadeModel(7425); //FIXME
 			RenderSystem.disableTexture();
-			bufferBuilder.begin(7, VertexFormats.POSITION_COLOR);
+			bufferBuilder.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_COLOR);
 			int c = index % 2 + 1;
 			int cb = hovering ? 220 : 255;
 			int baseAlpha = 30;
-			bufferBuilder.vertex((double)x, (double)(y + height), 0.0D).color(cb, cb, 255, baseAlpha*c).next();
-			bufferBuilder.vertex((double)(x + width - 10), (double)(y + height), 0.0D).color(cb, cb, 255, baseAlpha*c).next();
-			bufferBuilder.vertex((double)(x + width - 10), (double)y, 0.0D).color(cb, cb, 255, baseAlpha*c).next();
-			bufferBuilder.vertex((double)x, (double)y, 0.0D).color(cb, cb, 255, baseAlpha*c).next();
+			bufferBuilder.vertex(x, y + height, 0.0D).color(cb, cb, 255, baseAlpha*c).next();
+			bufferBuilder.vertex(x + width - 10, y + height, 0.0D).color(cb, cb, 255, baseAlpha*c).next();
+			bufferBuilder.vertex(x + width - 10, y, 0.0D).color(cb, cb, 255, baseAlpha*c).next();
+			bufferBuilder.vertex(x, y, 0.0D).color(cb, cb, 255, baseAlpha*c).next();
 			tessellator.draw();
 			RenderSystem.enableTexture();
 			RenderSystem.disableBlend();
@@ -120,7 +124,26 @@ public class ConfigValueListWidget extends ElementListWidget<ConfigValueListWidg
 			this.updateFromValue();
 		}
 		
-		public abstract void updateFromValue() ;
+		public abstract void updateFromValue();
+		
+		protected <E extends Element & Selectable> void addSelectableChild(E selectable) {
+		    this.selectableChildren.add(selectable);
+		    this.children.add(selectable);
+		}
+		
+		protected void addChild(Element child) {
+		    this.children.add(child);
+		}
+		
+        @Override
+        public List<? extends Selectable> method_37025() {
+            return this.selectableChildren;
+        }
+        
+        @Override
+        public List<? extends Element> children() {
+            return this.children;
+        }
 
 	}
 
@@ -143,8 +166,7 @@ public class ConfigValueListWidget extends ElementListWidget<ConfigValueListWidg
 					}
 					
 				};
-
-					
+				this.addSelectableChild(this.slider);
 			}
 			this.textField = new TextFieldWidget(font, 0, 0, 50, 20, Text.of(""));
 			this.textField.setChangedListener((text) -> {
@@ -159,6 +181,7 @@ public class ConfigValueListWidget extends ElementListWidget<ConfigValueListWidg
 			});
 			this.textField.setText("" + this.slider.getVal());
 			this.textField.setCursorToStart();
+			this.addSelectableChild(this.textField);
 		}
 
 
@@ -175,15 +198,6 @@ public class ConfigValueListWidget extends ElementListWidget<ConfigValueListWidg
 			this.textField.y = y + 3;
 			this.textField.render(matrices, mouseX, mouseY, delta);
 			DrawableHelper.drawStringWithShadow(matrices, this.font, this.getLocalizedKey(), x+5, y+9, 0xFFFFFF);
-		}
-
-
-		@Override
-		public List<? extends Element> children() {
-			ArrayList<Element> children = new ArrayList<Element>();
-			children.add(this.textField);
-			if(this.slider != null) children.add(this.slider);
-			return children;
 		}
 
 		@Override
@@ -214,6 +228,7 @@ public class ConfigValueListWidget extends ElementListWidget<ConfigValueListWidg
 					}
 					
 				};
+				this.addSelectableChild(this.slider);
 			}
 			this.textField = new TextFieldWidget(font, 0, 0, 50, 20, Text.of(""));
 			this.textField.setChangedListener((text) -> {
@@ -228,6 +243,7 @@ public class ConfigValueListWidget extends ElementListWidget<ConfigValueListWidg
 			});
 			this.textField.setText("" + this.slider.getVal());
 			this.textField.setCursorToStart();
+			this.addSelectableChild(this.textField);
 		}
 
 
@@ -245,15 +261,6 @@ public class ConfigValueListWidget extends ElementListWidget<ConfigValueListWidg
 			this.textField.render(matrices, mouseX, mouseY, delta);
 			DrawableHelper.drawStringWithShadow(matrices, this.font, this.getLocalizedKey(), x+5, y+9, 0xFFFFFF);
 		}
-
-		@Override
-		public List<? extends Element> children() {
-			ArrayList<Element> children = new ArrayList<Element>();
-			children.add(textField);
-			if(this.slider != null) children.add(this.slider);
-			return children;
-		}
-
 
 		@Override
 		public void updateFromValue() {
@@ -282,6 +289,7 @@ public class ConfigValueListWidget extends ElementListWidget<ConfigValueListWidg
 
 			};
 			this.toggleButton.setTextureUV(2, 2, 28, 18, new Identifier(MCCT.MOD_ID, "textures/gui/widgets.png"));
+			this.addSelectableChild(this.toggleButton);
 		}
 
 		@Override
@@ -291,14 +299,6 @@ public class ConfigValueListWidget extends ElementListWidget<ConfigValueListWidg
 			this.toggleButton.y = y + height / 2 - 7;
 			this.toggleButton.render(matrices, mouseX, mouseY, delta);
 			DrawableHelper.drawStringWithShadow(matrices, this.font, this.getLocalizedKey(), x+10, y + height/2 - 2, 0xFFFFFF);
-		}
-
-
-		@Override
-		public List<? extends Element> children() {
-			ArrayList<Element> children = new ArrayList<Element>();
-			children.add(this.toggleButton);
-			return children;
 		}
 
 		@Override
@@ -325,6 +325,7 @@ public class ConfigValueListWidget extends ElementListWidget<ConfigValueListWidg
 				}
 			});
 			this.textField.setCursorToStart();
+			this.addSelectableChild(this.textField);
 		}
 
 
@@ -335,17 +336,8 @@ public class ConfigValueListWidget extends ElementListWidget<ConfigValueListWidg
 			this.textField.y = y + 25;
 			this.textField.setWidth(width - 20);
 			this.textField.render(matrices, mouseX, mouseY, delta);
-			DrawableHelper.drawCenteredString(matrices, this.font, this.getLocalizedKey(), x + width/2 -5, y + 8, 0xFFFFFF);
+			DrawableHelper.drawCenteredText(matrices, this.font, this.getLocalizedKey(), x + width/2 -5, y + 8, 0xFFFFFF);
 		}
-
-
-		@Override
-		public List<? extends Element> children() {
-			ArrayList<Element> children = new ArrayList<Element>();
-			children.add(this.textField);
-			return children;
-		}
-
 
 		@Override
 		public void updateFromValue() {
@@ -361,19 +353,16 @@ public class ConfigValueListWidget extends ElementListWidget<ConfigValueListWidg
 			super(key, configValue);
 		}
 
-
 		@Override
 		public void render(MatrixStack matrices, int index, int y, int x, int width, int height, int mouseX, int mouseY, boolean hovering, float delta) {
 			this.renderBackground(index, y, x, width, height, mouseX, mouseY, hovering, delta);
 			DrawableHelper.drawStringWithShadow(matrices, this.font, this.getLocalizedKey(), x, y, 0xFFFFFF);
 		}
 
-
 		@Override
 		public List<? extends Element> children() {
 			return new ArrayList<Element>();
 		}
-
 
 		@Override
 		public void updateFromValue() {}

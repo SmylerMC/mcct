@@ -50,8 +50,8 @@ public class MCCTConfigScreen extends Screen {
 		this.widgetTweakList.setLeftPos(5);
 		this.widgetValueList = new ConfigValueListWidget(this.client, this.width / 2 - 10, this.height, this.height / 2, this.height - 50, 55);
 		this.widgetValueList.setLeftPos(this.width/2 + 5);
-		this.addButton(resetButton);
-		this.addButton(new ButtonWidget(this.width / 2 + 4, this.height - 28, 150, 20, new TranslatableText("gui.done"), button ->  {
+		this.addDrawableChild(resetButton);
+		this.addDrawableChild(new ButtonWidget(this.width / 2 + 4, this.height - 28, 150, 20, new TranslatableText("gui.done"), button ->  {
 			Tweaks.saveConfig();
 			MinecraftClient.getInstance().openScreen(this.parentScreen);
 		}));
@@ -61,10 +61,12 @@ public class MCCTConfigScreen extends Screen {
 			}
 		});
 		this.resetValuesButton.active = false;
-		this.addButton(resetValuesButton);
+		this.addDrawableChild(this.resetValuesButton);
+//		this.addButton(resetValuesButton);
+		this.addDrawableChild(this.resetValuesButton);
 		this.widgetTweakList.addAll(Tweaks.getTweaks());
-		this.children.add(this.widgetTweakList);
-		this.children.add(this.widgetValueList);
+		this.addDrawableChild(this.widgetTweakList);
+		this.addDrawableChild(this.widgetValueList);
 	}
 
 	@Override
@@ -72,12 +74,12 @@ public class MCCTConfigScreen extends Screen {
 		this.renderBackgroundTexture(0);
 		this.widgetTweakList.render(matrices, mouseX, mouseY, delta);
 		this.widgetValueList.render(matrices, mouseX, mouseY, delta);
-		DrawableHelper.drawCenteredString(matrices, this.textRenderer, I18n.translate(MCCT.MOD_ID + ".configscreen.title"), this.width/2, 20, 0xFFFFFF);
-		DrawableHelper.drawCenteredString(matrices, this.textRenderer, I18n.translate(MCCT.MOD_ID + ".configscreen.tweakconfig"), this.width/4 * 3, 50, 0xFFFFFF);
-		TweakEntry entry = this.widgetTweakList.getSelected();
+		DrawableHelper.drawCenteredText(matrices, this.textRenderer, I18n.translate(MCCT.MOD_ID + ".configscreen.title"), this.width/2, 20, 0xFFFFFF);
+		DrawableHelper.drawCenteredText(matrices, this.textRenderer, I18n.translate(MCCT.MOD_ID + ".configscreen.tweakconfig"), this.width/4 * 3, 50, 0xFFFFFF);
+		TweakEntry entry = this.widgetTweakList.getSelectedOrNull();
 		if(entry != null) {
 			AbstractTweak tweak = entry.getTweak();
-			DrawableHelper.drawCenteredString(matrices, this.textRenderer, tweak.getLocalizedName(), this.width/4 * 3, 65, 0xFFFFFF);
+			DrawableHelper.drawCenteredText(matrices, this.textRenderer, tweak.getLocalizedName(), this.width/4 * 3, 65, 0xFFFFFF);
 			RenderUtils.drawMultilineBoxedString(this.client, matrices, tweak.getLocalizedDescription(), this.width/2 + 5, 80, this.width / 2 -10, 0xBBBBBB);
 
 		} else {

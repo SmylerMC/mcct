@@ -7,10 +7,10 @@ import fr.thesmyler.mcct.audio.TweakedSoundManager;
 import fr.thesmyler.mcct.audio.TweakedSoundSystem;
 import net.minecraft.client.sound.SoundManager;
 import net.minecraft.client.sound.SoundSystem;
-import net.minecraft.resource.SinglePreparationResourceReloadListener;
 
 @Mixin(SoundManager.class)
-public abstract class SoundManagerMixin extends SinglePreparationResourceReloadListener<SoundManager.SoundList> implements TweakedSoundManager{
+//public abstract class SoundManagerMixin extends SinglePreparationResourceReloader<SoundManager.SoundList> implements TweakedSoundManager{
+public abstract class SoundManagerMixin implements TweakedSoundManager{
 	
 	@Shadow private SoundSystem soundSystem;
 	
@@ -21,7 +21,7 @@ public abstract class SoundManagerMixin extends SinglePreparationResourceReloadL
 	
 	@Override
 	public TweakedSoundSystem getTweakedSoundSystem() {
-		return (TweakedSoundSystem)getSoundSystem();
+		return (TweakedSoundSystem) this.getSoundSystem();
 	}
 
 }

@@ -32,7 +32,8 @@ public class GenericToast implements Toast {
 
 		MinecraftClient client = manager.getGame();
 		client.getTextureManager().bindTexture(TEXTURE);
-		RenderSystem.color3f(1.0F, 1.0F, 1.0F);
+		RenderSystem.clearColor(1.0F, 1.0F, 1.0F, 1.0F);
+//	    RenderSystem.color3f(1.0F, 1.0F, 1.0F); //TODO Is this right ?
 		manager.drawTexture(matrices, 0, 0, 0, 32, 160, 32);
 		float xpos = this.icon != null ? 30: 10;
 		if (this.descriptionKey == null) {

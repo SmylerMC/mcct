@@ -1,6 +1,5 @@
 package fr.thesmyler.mcct;
 
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -27,4 +26,5 @@ public class MCCT implements ClientModInitializer {
 		ClientTickEvents.END_CLIENT_TICK.register(MCCTKeyBindings::checkBindings);
 		ClientTickEvents.END_CLIENT_TICK.register(InventoryEvents::checkForInventoryEvents);
 	}
+	
 }

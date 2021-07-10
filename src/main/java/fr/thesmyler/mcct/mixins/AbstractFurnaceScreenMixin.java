@@ -25,7 +25,7 @@ public abstract class AbstractFurnaceScreenMixin<T extends AbstractFurnaceScreen
 	
 	@Inject(at=@At("TAIL"), method="init()V")
 	public void initTweak(CallbackInfo info) {
-		this.children.add(this.recipeBook);
+		//this.children().add(this.recipeBook); //FIXME
 	}
 
 }

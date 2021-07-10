@@ -12,82 +12,85 @@ import fr.thesmyler.mcct.audio.TweakedSoundEngine;
 import fr.thesmyler.mcct.audio.TweakedSoundManager;
 import fr.thesmyler.mcct.audio.TweakedSoundSystem;
 import fr.thesmyler.mcct.audio.exceptions.ExtensionNotSupportedException;
+import fr.thesmyler.mcct.gui.widgets.TweakedButtonWidget;
 import fr.thesmyler.mcct.tweaks.Tweaks;
+import net.minecraft.client.gui.Element;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.ScreenTexts;
-import net.minecraft.client.gui.screen.options.GameOptionsScreen;
-import net.minecraft.client.gui.screen.options.SoundOptionsScreen;
-import net.minecraft.client.gui.widget.AbstractButtonWidget;
+import net.minecraft.client.gui.screen.option.GameOptionsScreen;
+import net.minecraft.client.gui.screen.option.SoundOptionsScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.options.CyclingOption;
-import net.minecraft.client.options.GameOptions;
+import net.minecraft.client.gui.widget.ButtonWidget.PressAction;
+import net.minecraft.client.option.CyclingOption;
+import net.minecraft.client.option.GameOptions;
 import net.minecraft.text.Text;
 
 @Mixin(SoundOptionsScreen.class)
 public abstract class SoundOptionScreenTweakMixin extends GameOptionsScreen {
 
-	private int deviceId = 0;
-	private List<String> devices;
-	private ButtonWidget doneButton = null;
+    private String device = null;
+    private List<String> devices;
+    private ButtonWidget doneButton = null;
 
-	public SoundOptionScreenTweakMixin(Screen parent, GameOptions gameOptions, Text title) {
-		super(parent, gameOptions, title);
-	}
+    public SoundOptionScreenTweakMixin(Screen parent, GameOptions gameOptions, Text title) {
+        super(parent, gameOptions, title);
+    }
 
-	@Inject(at=@At("TAIL"), method="init()V")
-	public void injectDeviceButton(CallbackInfo info) {
-		if(!Tweaks.SOUND_DEVICE.isActivated()) return;
-		try {
-			
-			TweakedSoundSystem soundSystem = ((TweakedSoundManager)this.client.getSoundManager()).getTweakedSoundSystem();
-			TweakedSoundEngine soundEngine = soundSystem.getTweakedSoundEngine();
-			this.devices = soundEngine.getAllDevices();
-			if(devices.size() > 0) {
-				this.deviceId = devices.indexOf(soundEngine.getCurrentDevice());
-				if(this.deviceId == -1) this.deviceId = 0;
-						CyclingOption deviceOption = new CyclingOption(MCCT.MOD_ID + ".audio_device",
-								(gameOptions, integer) -> {
-									deviceId = (deviceId + integer) % devices.size();
-								},
-								(gameOptions, cyclingOptions) -> Text.of(devices.get(deviceId))
-								);
-				this.addButton(deviceOption.createButton(gameOptions, this.width/2 + 5, this.height / 6 + 108, 150));
-				for(AbstractButtonWidget abstractButton: this.buttons) {
-					if(!(abstractButton instanceof ButtonWidget)) continue;
-					ButtonWidget button = (ButtonWidget)abstractButton;
-					if(button.getMessage().equals(ScreenTexts.DONE)) {
-						doneButton = button;
-						break;
-					}
-				}
-				if(doneButton == null) {
-					MCCT.LOGGER.error("Could not find done button in sound option screen");
-				} else {
-					int buttonIndex = this.buttons.indexOf(doneButton);
-					ButtonWidget newButton = new ButtonWidget(
-							doneButton.x, doneButton.y, doneButton.getWidth(), 20, doneButton.getMessage(), (buttonWidget) -> {
-								String newDevice = devices.get(deviceId);
-								try {
-									if(!soundEngine.getCurrentDevice().equals(newDevice)) {
-										Tweaks.SOUND_DEVICE.PREFERRED_DEVICE.set(devices.get(deviceId));
-										soundSystem.restart();
-									}
-								} catch (ExtensionNotSupportedException e) {
-									MCCT.LOGGER.error("Failed to set new device because the enumerate all extension is not available, but the extension sould have been checked ??");
-								}
-								doneButton.onPress();
-							}
-					);
-					this.buttons.set(buttonIndex, newButton);
-					int childIndex = this.children.indexOf(doneButton);
-					this.children.set(childIndex, newButton);
-				}
-			} else {
-				MCCT.LOGGER.error("Failed to find any audio device, falling back to vanilla behavior, whatever it may be");
-			}
-		} catch (ExtensionNotSupportedException e) {
-			MCCT.LOGGER.error("Failed to querry audio device list, extension not available");
-		}
-	}
+    @Inject(at=@At("TAIL"), method="init()V") //FIXME
+    public void injectDeviceButton(CallbackInfo info) {
+        if(!Tweaks.SOUND_DEVICE.isActivated()) return;
+        try {
+
+            TweakedSoundSystem soundSystem = ((TweakedSoundManager)this.client.getSoundManager()).getTweakedSoundSystem();
+            TweakedSoundEngine soundEngine = soundSystem.getTweakedSoundEngine();
+            String currentDevice = soundEngine.getCurrentDevice();
+            this.devices = soundEngine.getAllDevices();
+            if(this.devices.size() > 0) {
+                CyclingOption<String> deviceOption = CyclingOption.create(
+                        MCCT.MOD_ID + ".audio_device",
+                        this.devices,
+                        device -> Text.of(device),
+                        gameOptions -> currentDevice,
+                        (gameOptions, option, device) -> this.device = device
+                        );
+                this.addDrawableChild(deviceOption.createButton(this.gameOptions, this.width/2 + 5, this.height / 6 + 108, 150));
+                for(Element child: this.children()) {
+                    if(!(child instanceof ButtonWidget)) continue;
+                    ButtonWidget button = (ButtonWidget)child;
+                    if(button.getMessage().equals(ScreenTexts.DONE)) {
+                        this.doneButton = button;
+                        break;
+                    }
+                }
+                if(this.doneButton == null) {
+                    MCCT.LOGGER.error("Could not find done button in sound option screen");
+                } else {
+                    PressAction newOnPress = buttonWidget -> {
+                        try {
+                            if(!soundEngine.getCurrentDevice().equals(this.device)) {
+                                Tweaks.SOUND_DEVICE.PREFERRED_DEVICE.set(this.device);
+                                soundSystem.restart();
+                            }
+                        } catch (ExtensionNotSupportedException e) {
+                            MCCT.LOGGER.error("Failed to set new audio device because the enumerate all extension is not available, but the extension should have been checked ??");
+                        }
+                        this.doneButton.onPress();
+                    };
+                    ButtonWidget newButton = new ButtonWidget(
+                            this.doneButton.x, this.doneButton.y,
+                            this.doneButton.getWidth(), this.doneButton.getHeight(),
+                            this.doneButton.getMessage(),
+                            newOnPress,
+                            ((TweakedButtonWidget)this.doneButton).getTooltipSupplier());
+                    this.remove(this.doneButton);
+                    this.addDrawableChild(newButton);
+                }
+            } else {
+                MCCT.LOGGER.error("Failed to find any audio device, falling back to vanilla behavior, whatever it may be");
+            }
+        } catch (ExtensionNotSupportedException e) {
+            MCCT.LOGGER.error("Failed to querry audio device list, extension not available");
+        }
+    }
 
 }
